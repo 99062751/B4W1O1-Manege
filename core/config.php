@@ -5,7 +5,7 @@ define('APPLICATION_TITLE', '');
 // Database instellingen
 define('DB_TYPE', 'mysql');		// Wat voor type database gebruik je?
 define('DB_HOST', '127.0.0.1'); // Wat is het IP adres van de server (127.0.0.1 is de lokae machine)
-define('DB_NAME', ''); // Wat is de database naam
+define('DB_NAME', 'Manege'); // Wat is de database naam
 define('DB_USER', 'root'); 		// Wat is de database gebruiker
 define('DB_PASS', 'mysql');		// Wat is het database wachtwoord
 define('DB_CHARSET', 'utf8'); 	// Welke karakterset wordt gebruikt
