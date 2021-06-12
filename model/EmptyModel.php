@@ -47,16 +47,21 @@ function getAllInfoFromTable($tablename= "Klanten"){
 
    // Geef het resultaat terug aan de controller
    return $result;
-}
 
-function getEmployee($id){
+
+   //maak ook een animal tabel met naam id ras age geschikt voor springsport
+   // voor pony's is hetzelfde maar geschiktheid voor springsport en wel schofthoogte belangrijk
+   // ook nog een reservations table met id, klant, paard, datum, tijd
+}	
+
+function getCostumer($id){
     try {
         // Open de verbinding met de database
         $conn=openDatabaseConnection();
  
         // Zet de query klaar door midel van de prepare method. Voeg hierbij een
         // WHERE clause toe (WHERE id = :id. Deze vullen we later in de code
-        $stmt = $conn->prepare("SELECT * FROM employees WHERE id = :id");
+        $stmt = $conn->prepare("SELECT * FROM Klanten WHERE id = :id");
         // Met bindParam kunnen we een parameter binden. Dit vult de waarde op de plaats in
         // We vervangen :id in de query voor het id wat de functie binnen is gekomen.
         $stmt->bindParam(":id", $id);
@@ -82,23 +87,21 @@ function getEmployee($id){
     return $result;
  }
 
-// function trimdata($var){
-//     $var= trim($var);
-//     $var= stripslashes($var);
-//     $var= htmlspecialchars($var);
-//     return $var;
-// }
+function trimdata($var){
+    $var= trim($var);
+    $var= stripslashes($var);
+    $var= htmlspecialchars($var);
+    return $var;
+}
 
-//maak nog ff controle en nog ff die data aanpassen.
-function createEmployee($data){
-    // Maak hier de code om een medewerker toe te voegen
+function AddCostumer($data){
+	// Maak hier de code om een medewerker toe te voegen
     try {
         $conn=openDatabaseConnection();
         
-        $stmt = $conn->prepare("INSERT INTO `employees` (name, age) VALUES(:name, :age)");
-        $stmt->bindParam(':name', $_POST["name"]);
-        $stmt->bindParam(':age', $_POST["age"]);
-        $stmt->execute(); 
+        $stmt = $conn->prepare("INSERT INTO Klanten (name) VALUES(:name)");
+        $stmt->bindParam(':name', $data);
+        $stmt->execute();
     }
     catch(PDOException $e){
         echo "Connection failed: " . $e->getMessage();
@@ -107,13 +110,13 @@ function createEmployee($data){
     $conn = null;
 }
 
- function updateEmployee($data){
+ function UpdateCostumer($data){
     // Maak hier de code om een medewerker te bewerken
 
     try {
         $conn=openDatabaseConnection();
   
-        $stmt = $conn->prepare("UPDATE `employees` SET name=:name, age=:age WHERE id = :id");
+        $stmt = $conn->prepare("UPDATE Klanten SET name=:name WHERE id = :id");
         $stmt->bindParam(':name', $_POST["name"]);
         $stmt->bindParam(':age', $_POST["age"]);
         $stmt->bindParam(':id', $data);
@@ -125,12 +128,12 @@ function createEmployee($data){
     $conn = null;
  }
 
- function deleteEmployee($data){
+ function DeleteCostumer($data){
      // Maak hier de code om een medewerker te verwijderen
      try {      
         $conn=openDatabaseConnection();
 
-        $stmt = $conn->prepare("DELETE FROM `employees` WHERE id = :id");
+        $stmt = $conn->prepare("DELETE FROM Klanten WHERE id = :id");
         $stmt->bindParam(':id', $data);
         $stmt->execute();  
     }
