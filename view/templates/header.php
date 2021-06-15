@@ -3,7 +3,7 @@
 	if($data['connection']){
 		//echo '<p>werkt</p>';
 		// echo '<img src="images/done.png" style="width: 100%">';
-		echo "werkt";
+		
 	}else{
 		echo '<h1>DB CONNECTION FAILED!</h1>';
 	}
@@ -22,13 +22,13 @@
 <body>
 <div class="navbar">
 			<div class="nav-items">
-				<ul>
-					<li><a href="<?=URL?>empty/index">HOME</a></li>
-					<li><a href="<?=URL?>empty/about">OVER</a></li>
-					<li><a href="<?=URL?>empty/reservationhorse">PAARDRIJDEN</a></li>
-					<li><a href="<?=URL?>empty/riders">ONZE RUITERS</a></li>
-					<li><a href="<?=URL?>empty/register">REGISTREREN</a></li>
-					<li><a href="<?=URL?>empty/contact">CONTACT</a></li>
+				<ul class="nav-list">
+					<li class="list-items"><a class="nav-links" href="<?=URL?>empty/index">HOME</a></li>
+					<li class="list-items"><a class="nav-links" href="<?=URL?>empty/about">OVER</a></li>
+					<li class="list-items"><a class="nav-links" href="<?=URL?>empty/overviewhorses">PAARDRIJDEN</a></li>
+					<li class="list-items"><a class="nav-links" href="<?=URL?>empty/riders">ONZE RUITERS</a></li>
+					<li class="list-items"><a class="nav-links" href="<?=URL?>empty/register">REGISTREREN</a></li>
+					<li class="list-items"><a class="nav-links" href="<?=URL?>empty/contact">CONTACT</a></li>
 				<?php 
 					if($_SERVER["REQUEST_METHOD"] == "post"){
 						echo '<li><a href="<?=URL?>empty/detailsreservation">MIJN RESERVERINGEN</a></li>'; 

@@ -9,3 +9,6 @@
 		<img src="images/horse.jpg" id="horse">
 		<img src="images/hangar.jpg" id="hangar">
 	</div>
+
+
+<!-- Niet de controle code rechtstreeks kopieeren dat snapt hij niet door de word aanpassingen -->

@@ -14,7 +14,7 @@
 	}
 
 
-function getAllInfoFromTable($tablename= "Klanten"){
+function getAllInfoFromTable($tablename= "Ruiters"){
   // Met het try statement kunnen we code proberen uit te voeren. Wanneer deze
   // mislukt kunnen we de foutmelding afvangen en eventueel de gebruiker een
   // nette foutmelding laten zien. In het catch statement wordt de fout afgevangen
@@ -23,8 +23,8 @@ function getAllInfoFromTable($tablename= "Klanten"){
        $conn=openDatabaseConnection();
    
        // Zet de query klaar door middel van de prepare method
-	   $stmt = $conn->prepare("SELECT * FROM :tablename");
-	   $stmt->bindParam(':tablename', $tablename);
+	   $stmt = $conn->prepare("SELECT * FROM $tablename");
+	   //$stmt->bindParam(':tablename', $tablename);
 
        // Voer de query uit
        $stmt->execute();
@@ -38,7 +38,7 @@ function getAllInfoFromTable($tablename= "Klanten"){
    // Vang de foutmelding af
    catch(PDOException $e){
        // Zet de foutmelding op het scherm
-       echo "Connection failed: " . $e->getMessage();
+       echo "Function GetallInfoFromTable Error. Connection failed: " . $e->getMessage();
    }
 
    // Maak de database verbinding leeg. Dit zorgt ervoor dat het geheugen
@@ -61,7 +61,7 @@ function getCostumer($id){
  
         // Zet de query klaar door midel van de prepare method. Voeg hierbij een
         // WHERE clause toe (WHERE id = :id. Deze vullen we later in de code
-        $stmt = $conn->prepare("SELECT * FROM Klanten WHERE id = :id");
+        $stmt = $conn->prepare("SELECT * FROM Ruiters WHERE id = :id");
         // Met bindParam kunnen we een parameter binden. Dit vult de waarde op de plaats in
         // We vervangen :id in de query voor het id wat de functie binnen is gekomen.
         $stmt->bindParam(":id", $id);
@@ -77,7 +77,7 @@ function getCostumer($id){
     }
     catch(PDOException $e){
 
-        echo "Connection failed: " . $e->getMessage();
+        echo "Function getCostumer Error. Connection failed: " . $e->getMessage();
     }
     // Maak de database verbinding leeg. Dit zorgt ervoor dat het geheugen
     // van de server opgeschoond blijft
@@ -94,17 +94,23 @@ function trimdata($var){
     return $var;
 }
 
+// CRUD klanten
+
+
+
 function AddCostumer($data){
 	// Maak hier de code om een medewerker toe te voegen
     try {
         $conn=openDatabaseConnection();
         
-        $stmt = $conn->prepare("INSERT INTO Klanten (name) VALUES(:name)");
-        $stmt->bindParam(':name', $data);
+        $stmt = $conn->prepare("INSERT INTO Ruiters (naam, adres, telefoonnmr) VALUES(:naam, :adres, :telnmr)");
+        $stmt->bindParam(':naam', $data["name"]);
+        $stmt->bindParam(':adres', $data["adress"]);
+        $stmt->bindParam(':telnmr', $data["nummer"]);
         $stmt->execute();
     }
     catch(PDOException $e){
-        echo "Connection failed: " . $e->getMessage();
+        echo "Function AddCostumer Error. Connection failed: " . $e->getMessage();
     }
 
     $conn = null;
@@ -116,14 +122,15 @@ function AddCostumer($data){
     try {
         $conn=openDatabaseConnection();
   
-        $stmt = $conn->prepare("UPDATE Klanten SET name=:name WHERE id = :id");
-        $stmt->bindParam(':name', $_POST["name"]);
-        $stmt->bindParam(':age', $_POST["age"]);
-        $stmt->bindParam(':id', $data);
+        $stmt = $conn->prepare("UPDATE Ruiters SET naam=:name, adres=:adres, telefoonmr=:telnmr WHERE id = :id");
+        $stmt->bindParam(':naam', $data["name"]);
+        $stmt->bindParam(':adres', $data["adress"]);
+        $stmt->bindParam(':telnmr', $data["nummer"]);
+        $stmt->bindParam(':id', $data["id"]);
         $stmt->execute(); 
     }
     catch(PDOException $e){
-        echo "Connection failed: " . $e->getMessage();
+        echo "Function UpdateCostumer Error. Connection failed: " . $e->getMessage();
     }
     $conn = null;
  }
@@ -133,15 +140,75 @@ function AddCostumer($data){
      try {      
         $conn=openDatabaseConnection();
 
-        $stmt = $conn->prepare("DELETE FROM Klanten WHERE id = :id");
+        $stmt = $conn->prepare("DELETE FROM Ruiters WHERE id = :id");
         $stmt->bindParam(':id', $data);
         $stmt->execute();  
     }
     catch(PDOException $e){
-        echo "Connection failed: " . $e->getMessage();
+        echo "Function DeleteCostumer Error. Connection failed: " . $e->getMessage();
     }
     $conn = null;
  }
 
+// CRUD paarden
 
+
+
+
+function StoreHorse($data){
+	// Maak hier de code om een medewerker toe te voegen
+    try {
+        $conn=openDatabaseConnection();
+        
+        $stmt = $conn->prepare("INSERT INTO Paarden (naam, leeftijd, ras, hoogte, springsport) VALUES(:naam, :leeftijd, :ras, :hoogte, :springsport)");
+        $stmt->bindParam(':naam', $data["name"]);
+        $stmt->bindParam(':leeftijd', $data["age"]);
+        $stmt->bindParam(':ras', $data["race"]);
+        $stmt->bindParam(':hoogte', $data["height"]);
+        $stmt->bindParam(':springsport', $data["show_jumping"]);
+        $stmt->execute();
+    }
+    catch(PDOException $e){
+        echo "Function StoreHorse Error. Connection failed: " . $e->getMessage();
+    }
+
+    $conn = null;
+}
+
+ function UpdateHorse($data){
+    // Maak hier de code om een medewerker te bewerken
+    $oldname= $data["name"];
+
+    try {
+        $conn=openDatabaseConnection();
+  
+        $stmt = $conn->prepare("UPDATE Paarden SET naam=:newname, leeftijd=:leeftijd, ras= :ras, hoogte= :hoogte, springsport= :springsport   WHERE naam = :naam");
+        $stmt->bindParam(':newname', $data["new-name"]);
+        $stmt->bindParam(':leeftijd', $data["age"]);
+        $stmt->bindParam(':ras', $data["race"]);
+        $stmt->bindParam(':hoogte', $data["height"]);
+        $stmt->bindParam(':springsport', $data["show_jumping"]);
+        $stmt->bindParam(':naam', $oldname);
+        $stmt->execute(); 
+    }
+    catch(PDOException $e){
+        echo "Function UpdateCostumer Error. Connection failed: " . $e->getMessage();
+    }
+    $conn = null;
+ }
+
+ function DeleteHorse($data){
+     // Maak hier de code om een medewerker te verwijderen
+     try {      
+        $conn=openDatabaseConnection();
+
+        $stmt = $conn->prepare("DELETE FROM Paarden WHERE naam = :naam");
+        $stmt->bindParam(':naam', $data["name"]);
+        $stmt->execute();  
+    }
+    catch(PDOException $e){
+        echo "Function DeleteHorse Error. Connection failed: " . $e->getMessage();
+    }
+    $conn = null;
+ }
 ?>

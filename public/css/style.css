@@ -13,23 +13,26 @@ div.navbar{
     margin: 0 auto;
 }
 
-ul{
+ul.nav-list{
     list-style: none;
 }
 
-li{
+li.list-items{
     display: inline-block;
     margin-left: 30px;
     margin-right: 30px;
 }
-a{
-    text-decoration: none;
+a.nav-links{
     color: whitesmoke;
     border: 3px solid white;
     padding: 15px;
 }
 
-a:hover{
+a{
+    text-decoration: none;
+}
+
+a.nav-links:hover{
     background-color: green;
 }
 
@@ -56,4 +59,35 @@ form#register{
     border: 3px solid white;
     background-color: black;
     padding: 20px;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid black;
+  text-align: left;
+  padding: 8px;
+  color: black;
+}
+
+th{
+    background-color: grey;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+tr:nth-child(odd) {
+    background-color: #ccc7c7;
+}
+
+.edit-link{
+    border: 3px solid black;
+    background-color: white;
+    color: black;
 }

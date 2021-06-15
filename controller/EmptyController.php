@@ -8,12 +8,14 @@ function index()
      render('empty/index', ['connection' => $connection]);
 }
 
-function register(){
+function register()
+{
     //1. Geef een view weer waarin een formulier staat voor het aanmaken van een medewerker
     render('empty/register');
 }
 
-function storeCostumer(){
+function storeCostumer()
+{
     //1. Maak een nieuwe medewerker aan met de data uit het formulier en sla deze op in de database
     $data = $_POST;
     AddCostumer($data); 
@@ -21,7 +23,8 @@ function storeCostumer(){
     render('empty/index', );
 }
 
-function EditCostumer($id){
+function EditCostumer($id)
+{
     //1. Haal een medewerker op met een specifiek id en sla deze op in een variable
     $employee= getCostumer($id);
 
@@ -29,7 +32,8 @@ function EditCostumer($id){
     render('empty/update', $employee);
 }
 
-function SaveCostumer($id){
+function SaveCostumer($id)
+{
     //1. Update een bestaand persoon met de data uit het formulier en sla deze op in de database
     $data= $id;
     updateCostumer($data);
@@ -38,33 +42,66 @@ function SaveCostumer($id){
     render('empty/index');
 }
 
-function AlertCostumer($id){
-    //1. Haal een medewerker op met een specifiek id en sla deze op in een variable
-    $employee= get($id);
-    //2. Geef een view weer voor het verwijderen en geef de variable met medewerker hieraan mee
-    render('empty/delete', $employee);
-}
+// function AlertCostumer($id){
+//     //1. Haal een medewerker op met een specifiek id en sla deze op in een variable
+//     $employee= get($id);
+//     //2. Geef een view weer voor het verwijderen en geef de variable met medewerker hieraan mee
+//     render('empty/delete', $employee);
+// }
 
-function RemoveCostumer($id){
-    $data= $id;
+function RemoveHorse()
+{
     //1. Delete een medewerker uit de database
-    // $data= $_POST;
-    deleteEmployee($data);
+    $data= $_POST;
+    DeleteHorse($data);
     //2. Bouw een url en redirect hierheen
-    render('empty/index');   
+    render('empty/overviewhorses');   
 }
 
-function riders(){
+function riders()
+{
       //1. Geef een view weer waarin een formulier staat voor het aanmaken van een medewerker
       render('empty/riders');
 }
 
-function about(){
+function about()
+{
+    //1. Geef een view weer waarin een formulier staat voor het aanmaken van een medewerker
+    render('empty/about');
+}
+
+function contact()
+{
     //1. Geef een view weer waarin een formulier staat voor het aanmaken van een medewerker
     render('empty/contact');
 }
 
-function reservationhorse(){
+function overviewhorses()
+{
     //1. Geef een view weer waarin een formulier staat voor het aanmaken van een medewerker
-    render('empty/reservationhorse');
+    render('empty/overviewhorses');
+}
+
+function DetailsReservation()
+{
+    render('empty/detailsreservation');
+}
+
+function EditHorses()
+{
+    render('empty/UD_reservation');
+}
+
+function ChangeHorse()  
+{
+    $data = $_POST;
+    UpdateHorse($data);
+
+    render('empty/overviewhorses');
+}
+function AddHorse()
+{
+    $data = $_POST;
+    StoreHorse($data);
+    render('empty/overviewhorses');
 }

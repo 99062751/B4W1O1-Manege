@@ -23,7 +23,7 @@
             <br>
 
             <label for="nummer">Telefoonnummer:</label>
-            <input name='nummer' type="text" placeholder="06 12 34 678" value="<?=$number?>">
+            <input name='nummer' type="text" placeholder="061234678" value="<?=$number?>">
             <br>
             <br>
 
