@@ -8,20 +8,25 @@
 <body>
     <h1>Details reserveren</h1>
 
-    <form id="register" name="create" method="post" action="<?=URL?>empty/storeCostumer">
+    <form id="register" name="create" method="post" action="<?=URL?>empty/storeReservation">
             <!-- bouw hier je formulier -->
-            <label for="name">Naam:</label>
-            <input name='name' type="text" placeholder="Voornaam" value="<?=$name?>">
+            <label for="name_resevator">Naam reserveerder:</label>
+            <input name='name_resevator' type="text" placeholder="Voornaam" value="<?=$namecostumer?>">
             <br>
             <br>
 
-            <label for="adress">Adres:</label>
-            <input name='adress' type="text" placeholder="Antoniuslaan 24" value="<?=$adress?>">
+            <label for="name_horse">Naam paard:</label>
+            <input name='name_horse' type="text" placeholder="Antoniuslaan 24" value="<?=$namehorse?>">
             <br>
             <br>
 
-            <label for="nummer">Telefoonnummer:</label>
-            <input name='nummer' type="text" placeholder="061234678" value="<?=$number?>">
+            <label for="date">Datum:</label>
+            <input name='date' type="date" placeholder="061234678" value="<?=$date?>">
+            <br>
+            <br>
+
+            <label for="time">Tijd:</label>
+            <input name='time' type="time" placeholder="061234678" value="<?=$time?>">
             <br>
             <br>
 

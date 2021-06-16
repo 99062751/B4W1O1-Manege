@@ -23,15 +23,15 @@
             <th>Reserveren</th>    
         </tr>
 <?php   foreach ($horses as $h => $horse) {  ?> 
-            <tr class="horse-info">
+            <a href=""><tr class="horse-info">
                 <td class="list-item"><?=$horse["naam"]?></td>
                 <td class="list-item"><?=$horse["leeftijd"]?></td>
                 <td class="list-item"><?=$horse["ras"]?></td>
                 <td class="list-item"><?=$horse["hoogte"]?></td>
                 <td class="list-item"><?=$horse["springsport"]?></td>
-                <td> <a href="detailsreservation">RESERVEREN</a></td>
+                <td> <a href="detailsreservation/<?=$horse["id"]?>">RESERVEREN</a></td>
                
-            </tr>
+            </tr></a>
            
 <?php   }     ?>
 
