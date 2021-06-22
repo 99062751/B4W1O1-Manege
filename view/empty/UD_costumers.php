@@ -1,74 +1,80 @@
-<h2>Voeg nieuw paard toe:</h2>
-    <form id="register" name="create" method="post" action="<?=URL?>empty/AddHorse">
+<?php
+ $riders= getAllInfoFromTable($tablename= "Ruiters");
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>UD_reservation</title>
+</head>
+<body>
+<h2>Wijzig of verwijder een klant:</h2>
+
+    <h2>Wijzig een klant:</h2>
+
+    <form id="register" name="create" method="post" action="<?=URL?>empty/EditCostumer">
             <!-- bouw hier je formulier -->
-            <label for="name">Naam:</label>
-            <input name='name' type="text" placeholder="Naam" value="<?=$name?>">
+            <label for="editID">ID klant die gewijzigd moet worden:</label>
+            <select name="editID" id="editID">
+
+                        <?php foreach ($riders as $r => $rider) {  ?>     ?>
+
+                <option value="<?=$rider["id"]?>"><?=$rider["id"]?></option>
+
+                <?php        } ?>
+                </select>
+                <br>
+            <br>
+
+
+
+            <label for="name_resevator">Nieuwe naam klant:</label>
+            <input type="text" value="<?=$name?>" name="name_resevator">
+
+        <!-- <select name="name_resevator" id="name_resevator">
+                         foreach ($riders as $r => $rider) {  ?>    
+
+                <option value="$rider["naam"]?>">$rider["naam"]?></option>
+
+                      } 
+        </select> -->
             <br>
             <br>
 
-            <label for="age">Adres:</label>
-            <input name='age' type="number" min="1" step="1" max="60" placeholder="26" value="<?=$adress?>">
+            <label for="adress">Adres:</label>
+            <input name='adress' type="text" placeholder="Artonastaart 9" value="<?=$adress?>">
             <br>
             <br>
 
-            <label for="race">Ras:</label>
-            <input name='race' type="text" placeholder="Pony" value="<?=$adress?>">
+            <label for="tel_nmbr">Telefoonnummer:</label>
+            <input name='tel_nmbr' type="text" placeholder="0612345678" value="<?=$nrumbe?>">
             <br>
             <br>
 
-            <label for="height">Telefoonnummer:</label>
-            <input name='height' type="number" min="40" max="300" step="0.1" placeholder="185" value="<?=$number?>">
-            <br>
-            <br>
+            <button type="submit">Wijzig</button>
 
-            <button type="submit">Voeg toe</button>
-    </form>
+        </form>
 
-    <h2>Wijzig een paard:</h2>
-
-<form id="register" name="create" method="post" action="<?=URL?>empty/ChangeHorse">
+<h2>Verwijder een reservering:</h2>
+<form id="register" name="create" method="post" action="<?=URL?>empty/RemoveCostumer">
         <!-- bouw hier je formulier -->
-        <label for="name">Wie wil je wijzigen:</label>
-        <input name='name' type="text" placeholder="Naam van het paard" value="<?=$name?>">
-        <br>
-        <br>
+        <label for="klantnaam">Welke klant:</label>
+        <select name="klantnaam" id="klantnaam">
+        <?php foreach ($riders as $r => $rider) {  ?>     ?>
 
-        <label for="new-name">Nieuwe naam:</label>
-        <input name='new-name' type="text" placeholder="Truus" value="<?=$name?>">
-        <br>
-        <br>
-
-        <label for="age">Leeftijd:</label>
-        <input name='age' type="number" min="1" step="1" max="60" placeholder="26" value="<?=$adress?>">
-        <br>
-        <br>
-
-        <label for="race">Ras:</label>
-        <input name='race' type="text" placeholder="Pony" value="<?=$adress?>">
-        <br>
-        <br>
-
-        <label for="height">Hoogte in cm:</label>
-        <input name='height' type="text" placeholder="185" value="<?=$number?>">
-        <br>
-        <br>
-
-        <label for="show_jumping">Kan springsport:</label>
-        <input name='show_jumping' type="text" placeholder="ja" value="<?=$number?>">
-        <br>
-        <br>
-
-        <button type="submit">Wijzig</button>
-</form>
-
-<h2>Verwijder een paard:</h2>
-<form id="register" name="create" method="post" action="<?=URL?>empty/RemoveHorse">
-        <!-- bouw hier je formulier -->
-        <label for="name">Naam paard:</label>
-        <input name='name' type="text" placeholder="Naam" value="<?=$name?>">
+                <option value="<?=$rider["naam"]?>"><?=$rider["naam"]?></option>
+        
+        <?php        } ?>
+     
+               
+        </select>
         <br>
         <br>
 
         <button type="submit">Verwijder</button>
 
-</form>
+</form>   
+</body>
+</html>

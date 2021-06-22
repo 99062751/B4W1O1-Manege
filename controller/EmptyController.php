@@ -25,31 +25,22 @@ function storeCostumer()
     render('empty/index', );
 }
 
-function EditCostumer($id)
-{
-    //1. Haal een medewerker op met een specifiek id en sla deze op in een variable
-    $employee= getCostumer($id, $tablename= "Ruiters");
-
-    //2. Geef een view weer voor het updaten en geef de variable met medewerker hieraan mee
-    render('empty/update', $employee);
-}
-
-function SaveCostumer($id)
+function EditCostumer()
 {
     //1. Update een bestaand persoon met de data uit het formulier en sla deze op in de database
-    $data= $id;
+    $data= $_POST;
     updateCostumer($data);
    
     //2. Bouw een url en redirect hierheen
-    render('empty/index');
+    render('empty/riders');
 }
 
-// function AlertCostumer($id){
-//     //1. Haal een medewerker op met een specifiek id en sla deze op in een variable
-//     $employee= get($id);
-//     //2. Geef een view weer voor het verwijderen en geef de variable met medewerker hieraan mee
-//     render('empty/delete', $employee);
-// }
+function RemoveCostumer(){
+    $data = $_POST;
+
+    DeleteCostumer($data);
+    render('empty/riders');
+}
 
 /* ======== Paarden CRUD ========*/
 
@@ -75,6 +66,33 @@ function RemoveHorse()
     DeleteHorse($data);
     //2. Bouw een url en redirect hierheen
     render('empty/overviewhorses');   
+}
+
+/* ======== Reserveringen CRUD ========*/
+
+function StoreReservation()
+{
+    $data = $_POST;
+    echo "lol";
+    AddReservation($data);
+    render('empty/myreservations');
+}
+
+function ChangeReservation()  
+{
+    $data = $_POST;
+    UpdateReservation($data);
+
+    render('empty/myreservations');
+}
+
+function RemoveReservation()
+{
+    //1. Delete een medewerker uit de database
+    $data= $_POST;
+    DeleteReservation($data);
+    //2. Bouw een url en redirect hierheen
+    render('empty/myreservations');   
 }
 
 /* ======== Manege url's ========*/
@@ -122,27 +140,6 @@ function myreservations(){
     render('empty/myreservations');
 }
 
-function StoreReservation()
-{
-    $data = $_POST;
-    echo "lol";
-    AddReservation($data);
-    render('empty/myreservations');
-}
-
-function ChangeReservation()  
-{
-    $data = $_POST;
-    UpdateReservation($data);
-
-    render('empty/myreservations');
-}
-
-function RemoveReservation()
-{
-    //1. Delete een medewerker uit de database
-    $data= $_POST;
-    DeleteReservation($data);
-    //2. Bouw een url en redirect hierheen
-    render('empty/myreservations');   
+function ud_costumers(){
+    render('empty/UD_costumers');
 }

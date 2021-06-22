@@ -27,10 +27,9 @@ $riders= getAllInfoFromTable();
             <td><?=$costumer["telefoonnmr"]?></td>
         </tr>
 <?php   }     ?>
-
         
     </table>
-
+    <a href="ud_costumers">Wijziging aanbrengen</a>
     
 </body>
 </html>

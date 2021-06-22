@@ -15,43 +15,43 @@
 
 
     function getAllInfoFromTable($tablename= "Ruiters"){
-    // Met het try statement kunnen we code proberen uit te voeren. Wanneer deze
-    // mislukt kunnen we de foutmelding afvangen en eventueel de gebruiker een
-    // nette foutmelding laten zien. In het catch statement wordt de fout afgevangen
-    try {
-        // Open de verbinding met de database
-        $conn=openDatabaseConnection();
+        // Met het try statement kunnen we code proberen uit te voeren. Wanneer deze
+        // mislukt kunnen we de foutmelding afvangen en eventueel de gebruiker een
+        // nette foutmelding laten zien. In het catch statement wordt de fout afgevangen
+        try {
+            // Open de verbinding met de database
+            $conn=openDatabaseConnection();
 
-        // Zet de query klaar door middel van de prepare method
-        $stmt = $conn->prepare("SELECT * FROM $tablename");
-        //$stmt->bindParam(':tablename', $tablename);
+            // Zet de query klaar door middel van de prepare method
+            $stmt = $conn->prepare("SELECT * FROM $tablename");
+            //$stmt->bindParam(':tablename', $tablename);
 
-        // Voer de query uit
-        $stmt->execute();
+            // Voer de query uit
+            $stmt->execute();
 
-        // Haal alle resultaten op en maak deze op in een array
-        // In dit geval is het mogelijk dat we meedere medewerkers ophalen, daarom gebruiken we
-        // hier de fetchAll functie.
-        $result = $stmt->fetchAll();
+            // Haal alle resultaten op en maak deze op in een array
+            // In dit geval is het mogelijk dat we meedere medewerkers ophalen, daarom gebruiken we
+            // hier de fetchAll functie.
+            $result = $stmt->fetchAll();
 
-    }
-    // Vang de foutmelding af
-    catch(PDOException $e){
-        // Zet de foutmelding op het scherm
-        echo "Function GetallInfoFromTable Error. Connection failed: " . $e->getMessage();
-    }
+        }
+        // Vang de foutmelding af
+        catch(PDOException $e){
+            // Zet de foutmelding op het scherm
+            echo "Function GetallInfoFromTable Error. Connection failed: " . $e->getMessage();
+        }
 
-    // Maak de database verbinding leeg. Dit zorgt ervoor dat het geheugen
-    // van de server opgeschoond blijft
-    $conn = null;
+        // Maak de database verbinding leeg. Dit zorgt ervoor dat het geheugen
+        // van de server opgeschoond blijft
+        $conn = null;
 
-    // Geef het resultaat terug aan de controller
-    return $result;
+        // Geef het resultaat terug aan de controller
+        return $result;
 
 
-    //maak ook een animal tabel met naam id ras age geschikt voor springsport
-    // voor pony's is hetzelfde maar geschiktheid voor springsport en wel schofthoogte belangrijk
-    // ook nog een reservations table met id, klant, paard, datum, tijd
+        //maak ook een animal tabel met naam id ras age geschikt voor springsport
+        // voor pony's is hetzelfde maar geschiktheid voor springsport en wel schofthoogte belangrijk
+        // ook nog een reservations table met id, klant, paard, datum, tijd
     }	
 
     function getCostumer($id, $tablename= "Ruiters"){
@@ -96,8 +96,6 @@
 
     // CRUD klanten
 
-
-
     function AddCostumer($data){
         // Maak hier de code om een medewerker toe te voegen
         try {
@@ -117,16 +115,17 @@
     }
 
     function UpdateCostumer($data){
+        echo $data["adress"];
         // Maak hier de code om een medewerker te bewerken
 
         try {
             $conn=openDatabaseConnection();
 
-            $stmt = $conn->prepare("UPDATE Ruiters SET naam=:naam, adres=:adres, telefoonmr=:telnmr WHERE id = :id");
-            $stmt->bindParam(':naam', $data["name"]);
+            $stmt = $conn->prepare("UPDATE Ruiters SET naam=:naam, adres=:adres, telefoonnmr=:telnmr WHERE id = :id");
+            $stmt->bindParam(':naam', $data["name_resevator"]);
             $stmt->bindParam(':adres', $data["adress"]);
-            $stmt->bindParam(':telnmr', $data["nummer"]);
-            $stmt->bindParam(':id', $data["id"]);
+            $stmt->bindParam(':telnmr', $data["tel_nmbr"]);
+            $stmt->bindParam(':id', $data["editID"]);
             $stmt->execute(); 
         }
         catch(PDOException $e){
@@ -140,8 +139,8 @@
         try {      
             $conn=openDatabaseConnection();
 
-            $stmt = $conn->prepare("DELETE FROM Ruiters WHERE id = :id");
-            $stmt->bindParam(':id', $data);
+            $stmt = $conn->prepare("DELETE FROM Ruiters WHERE naam = :naam");
+            $stmt->bindParam(':naam', $data["klantnaam"]);
             $stmt->execute();  
         }
         catch(PDOException $e){
@@ -151,9 +150,6 @@
     }
 
     // CRUD paarden
-
-
-
 
     function StoreHorse($data){
         // Maak hier de code om een medewerker toe te voegen
@@ -214,9 +210,6 @@
 
     //CRUD reserveringen
 
-
-    
-
     function AddReservation($data){
         // Maak hier de code om een medewerker toe te voegen
   
@@ -240,12 +233,11 @@
 
     function UpdateReservation($data){
         // Maak hier de code om een medewerker te bewerken
-
         try {
             $conn=openDatabaseConnection();
 
-            $stmt = $conn->prepare("UPDATE Reserveringen SET ruiter=:ruiter, paard=:paard, datum=:datum, tijd=:tijd WHERE id = :id");
-            $stmt->bindParam(':ruiter', $data["name_reservator"]);
+            $stmt = $conn->prepare("UPDATE Reserveringen SET ruiter=:ruiter, paard=:paard, datum=:datum, Begintijd=:Begintijd, Eindtijd=:Eindtijd  WHERE id = :id");
+            $stmt->bindParam(':ruiter', $data["name_resevator"]);
             $stmt->bindParam(':paard', $data["name_horse"]);
             $stmt->bindParam(':datum', $data["date"]);
             $stmt->bindParam(':Begintijd', $data["start_time"]);

@@ -1,5 +1,6 @@
 <?php
  $reservations= getAllInfoFromTable($tablename= "Reserveringen");
+ $riders= getAllInfoFromTable($tablename= "Ruiters");
 ?>
 
 <!DOCTYPE html>
@@ -13,8 +14,14 @@
 <h2>Voeg nieuwe reservering toe:</h2>
 <form id="register" name="create" method="post" action="<?=URL?>empty/storeReservation">
             <!-- bouw hier je formulier -->
-            <label for="name_resevator">Naam reserveerder:</label>
-            <input name='name_resevator' type="text" placeholder="" value="<?=$namecostumer?>">
+            <label for="name_resevator2">Naam reserveerder:</label>
+        <select name="name_resevator2" id="name_resevator2">
+                        <?php foreach ($riders as $r => $rider) {  ?>     ?>
+
+                <option value="<?=$rider["naam"]?>"><?=$rider["naam"]?></option>
+
+                <?php        } ?>
+        </select>
             <br>
             <br>
 
@@ -58,8 +65,16 @@
                 <br>
             <br>
 
+
+
             <label for="name_resevator">Naam reserveerder:</label>
-            <input name='name_resevator' type="text" placeholder="" value="<?=$namecostumer?>">
+        <select name="name_resevator" id="name_resevator">
+                        <?php foreach ($riders as $r => $rider) {  ?>    
+
+                <option value="<?=$rider["naam"]?>"><?=$rider["naam"]?></option>
+
+                <?php        } ?>
+        </select>
             <br>
             <br>
 
