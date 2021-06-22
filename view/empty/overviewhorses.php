@@ -29,7 +29,7 @@
                 <td class="list-item"><?=$horse["ras"]?></td>
                 <td class="list-item"><?=$horse["hoogte"]?></td>
                 <td class="list-item"><?=$horse["springsport"]?></td>
-                <td> <a href="detailsreservation/<?=$horse["id"]?>">RESERVEREN</a></td>
+                <td> <a href="detailreservation/<?=$horse["id"]?>">RESERVEREN</a></td>
                
             </tr></a>
            

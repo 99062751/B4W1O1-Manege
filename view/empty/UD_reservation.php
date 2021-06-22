@@ -1,85 +1,109 @@
-<h2>Voeg nieuw paard toe:</h2>
-    <form id="register" name="create" method="post" action="<?=URL?>empty/AddHorse">
+<?php
+ $reservations= getAllInfoFromTable($tablename= "Reserveringen");
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>UD_reservation</title>
+</head>
+<body>
+<h2>Voeg nieuwe reservering toe:</h2>
+<form id="register" name="create" method="post" action="<?=URL?>empty/storeReservation">
             <!-- bouw hier je formulier -->
-            <label for="name">Naam:</label>
-            <input name='name' type="text" placeholder="Naam" value="<?=$name?>">
+            <label for="name_resevator">Naam reserveerder:</label>
+            <input name='name_resevator' type="text" placeholder="" value="<?=$namecostumer?>">
             <br>
             <br>
 
-            <label for="age">Leeftijd:</label>
-            <input name='age' type="number" min="1" step="1" max="60" placeholder="26" value="<?=$adress?>">
+            <label for="name_horse">Naam paard:</label>
+            <input name='name_horse' type="text" value="<?=$data['naam']?>" >
             <br>
             <br>
 
-            <label for="race">Ras:</label>
-            <input name='race' type="text" placeholder="Pony" value="<?=$adress?>">
+            <label for="date">Datum:</label>
+            <input name='date' type="date" placeholder="12-03-2011" value="<?=$date?>">
             <br>
             <br>
 
-            <label for="height">Hoogte in cm:</label>
-            <input name='height' type="number" min="40" max="300" step="0.1" placeholder="185" value="<?=$number?>">
+            <label for="start_time">Begintijd:</label>
+            <input name='start_time' type="time" placeholder="" value="<?=$time?>">
             <br>
             <br>
 
-            <label for="show_jumping">Kan springsport:</label>
-            <input name='show_jumping' type="text" placeholder="ja" value="<?=$number?>">
-
-            <!-- <label for="show_jumping">Kan springsport:</label>
-            <select name='show_jumping' id="">
-                <option value="">ja</option>
-                <option value="">nee</option>
-            </select> -->
+            <label for="end_time">Eindtijd:</label>
+            <input name='end_time' type="time" placeholder="" value="<?=$time?>">
             <br>
             <br>
 
             <button type="submit">Voeg toe</button>
-    </form>
 
-    <h2>Wijzig een paard:</h2>
+        </form>
 
-<form id="register" name="create" method="post" action="<?=URL?>empty/ChangeHorse">
+    <h2>Wijzig een reservering:</h2>
+
+    <form id="register" name="create" method="post" action="<?=URL?>empty/ChangeReservation">
+            <!-- bouw hier je formulier -->
+            <label for="editID">ID reservering die gewijzigd moet worden:</label>
+            <select name="editID" id="editID">
+
+                        <?php foreach ($reservations as $r => $reservation) {  ?>     ?>
+
+                <option value="<?=$reservation["id"]?>"><?=$reservation["id"]?></option>
+
+                <?php        } ?>
+                </select>
+                <br>
+            <br>
+
+            <label for="name_resevator">Naam reserveerder:</label>
+            <input name='name_resevator' type="text" placeholder="" value="<?=$namecostumer?>">
+            <br>
+            <br>
+
+            <label for="name_horse">Naam paard:</label>
+            <input name='name_horse' type="text" placeholder="<?=$horse["name"]?>" value="<?=$data['naam']?>">
+            <br>
+
+            <label for="date">Datum:</label>
+            <input name='date' type="date" placeholder="" value="<?=$date?>">
+            <br>
+            <br>
+
+            <label for="start_time">Begintijd:</label>
+            <input name='start_time' type="time" placeholder="" value="<?=$time?>">
+            <br>
+            <br>
+
+            <label for="end_time">Eindtijd:</label>
+            <input name='end_time' type="time" placeholder="" value="<?=$time?>">
+            <br>
+            <br>
+
+            <button type="submit">Wijzig</button>
+
+        </form>
+
+<h2>Verwijder een reservering:</h2>
+<form id="register" name="create" method="post" action="<?=URL?>empty/RemoveReservation">
         <!-- bouw hier je formulier -->
-        <label for="name">Wie wil je wijzigen:</label>
-        <input name='name' type="text" placeholder="Naam van het paard" value="<?=$name?>">
-        <br>
-        <br>
+        <label for="id">Welke reservering:</label>
+        <select name="id" id="id">
+        <?php foreach ($reservations as $r => $reservation) {  ?>     ?>
 
-        <label for="new-name">Nieuwe naam:</label>
-        <input name='new-name' type="text" placeholder="Truus" value="<?=$name?>">
-        <br>
-        <br>
-
-        <label for="age">Leeftijd:</label>
-        <input name='age' type="number" min="1" step="1" max="60" placeholder="26" value="<?=$adress?>">
-        <br>
-        <br>
-
-        <label for="race">Ras:</label>
-        <input name='race' type="text" placeholder="Pony" value="<?=$adress?>">
-        <br>
-        <br>
-
-        <label for="height">Hoogte in cm:</label>
-        <input name='height' type="text" placeholder="185" value="<?=$number?>">
-        <br>
-        <br>
-
-        <label for="show_jumping">Kan springsport:</label>
-        <input name='show_jumping' type="text" placeholder="ja" value="<?=$number?>">
-        <br>
-        <br>
-
-        <button type="submit">Wijzig</button>
-</form>
-
-<h2>Verwijder een paard:</h2>
-<form id="register" name="create" method="post" action="<?=URL?>empty/RemoveHorse">
-        <!-- bouw hier je formulier -->
-        <label for="name">Naam paard:</label>
-        <input name='name' type="text" placeholder="Naam" value="<?=$name?>">
+                <option value="<?=$reservation["id"]?>"><?=$reservation["id"]?></option>
+        
+        <?php        } ?>
+     
+               
+        </select>
         <br>
         <br>
 
         <button type="submit">Verwijder</button>
 
-</form>
+</form>   
+</body>
+</html>

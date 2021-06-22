@@ -5,7 +5,7 @@
 		// echo '<img src="images/done.png" style="width: 100%">';
 		
 	}else{
-		echo '<h1>DB CONNECTION FAILED!</h1>';
+		// echo '<h1>DB CONNECTION FAILED!</h1>';
 	}
 
 ?>
@@ -27,6 +27,7 @@
 					<li class="list-items"><a class="nav-links" href="<?=URL?>empty/about">OVER</a></li>
 					<li class="list-items"><a class="nav-links" href="<?=URL?>empty/overviewhorses">PAARDRIJDEN</a></li>
 					<li class="list-items"><a class="nav-links" href="<?=URL?>empty/riders">ONZE RUITERS</a></li>
+					<li class="list-items"><a class="nav-links" href="<?=URL?>empty/myreservations">MIJN RESERVERINGEN</a></li>
 					<li class="list-items"><a class="nav-links" href="<?=URL?>empty/register">REGISTREREN</a></li>
 					<li class="list-items"><a class="nav-links" href="<?=URL?>empty/contact">CONTACT</a></li>
 				<?php 

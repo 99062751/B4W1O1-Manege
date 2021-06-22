@@ -30,5 +30,7 @@ $riders= getAllInfoFromTable();
 
         
     </table>
+
+    
 </body>
 </html>

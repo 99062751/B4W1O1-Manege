@@ -28,7 +28,7 @@ function storeCostumer()
 function EditCostumer($id)
 {
     //1. Haal een medewerker op met een specifiek id en sla deze op in een variable
-    $employee= getCostumer($id);
+    $employee= getCostumer($id, $tablename= "Ruiters");
 
     //2. Geef een view weer voor het updaten en geef de variable met medewerker hieraan mee
     render('empty/update', $employee);
@@ -105,21 +105,27 @@ function overviewhorses()
 
 function EditHorses()
 {
+    render('empty/UD_horses');
+}
+
+function Change(){
     render('empty/UD_reservation');
 }
 
-
-function DetailsReservation($id)
+function DetailReservation($id)
 {
-    $id= $_GET["id"];
-    render('empty/detailsreservation', $id);
+    $horse= getCostumer($id, $tablename= "Paarden");
+    render('empty/detailsreservation', $horse);
 }
 
-
+function myreservations(){
+    render('empty/myreservations');
+}
 
 function StoreReservation()
 {
     $data = $_POST;
+    echo "lol";
     AddReservation($data);
     render('empty/myreservations');
 }

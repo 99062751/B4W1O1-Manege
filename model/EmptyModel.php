@@ -219,14 +219,16 @@
 
     function AddReservation($data){
         // Maak hier de code om een medewerker toe te voegen
+  
         try {
             $conn=openDatabaseConnection();
             
-            $stmt = $conn->prepare("INSERT INTO Reserveringen (ruiter, paard, datum, tijd) VALUES(:ruiter, :paard, :datum, :tijd)");
+            $stmt = $conn->prepare("INSERT INTO Reserveringen (ruiter, paard, datum, Begintijd, Eindtijd) VALUES(:ruiter, :paard, :datum, :Begintijd, :Eindtijd)");
             $stmt->bindParam(':ruiter', $data["name_resevator"]);
             $stmt->bindParam(':paard', $data["name_horse"]);
             $stmt->bindParam(':datum', $data["date"]);
-            $stmt->bindParam(':tijd', $data["time"]);
+            $stmt->bindParam(':Begintijd', $data["start_time"]);
+            $stmt->bindParam(':Eindtijd', $data["end_time"]);
             $stmt->execute();
         }
         catch(PDOException $e){
@@ -246,8 +248,9 @@
             $stmt->bindParam(':ruiter', $data["name_reservator"]);
             $stmt->bindParam(':paard', $data["name_horse"]);
             $stmt->bindParam(':datum', $data["date"]);
-            $stmt->bindParam(':tijd', $data["time"]);
-            $stmt->bindParam(':id', $data["id"]);
+            $stmt->bindParam(':Begintijd', $data["start_time"]);
+            $stmt->bindParam(':Eindtijd', $data["end_time"]);
+            $stmt->bindParam(':id', $data["editID"]);
             $stmt->execute(); 
         }
         catch(PDOException $e){
@@ -262,7 +265,7 @@
             $conn=openDatabaseConnection();
 
             $stmt = $conn->prepare("DELETE FROM Reserveringen WHERE id = :id");
-            $stmt->bindParam(':id', $data);
+            $stmt->bindParam(':id', $data["id"]);
             $stmt->execute();  
         }
         catch(PDOException $e){

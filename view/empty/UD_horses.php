@@ -6,7 +6,7 @@
             <br>
             <br>
 
-            <label for="age">Adres:</label>
+            <label for="age">Leeftijd:</label>
             <input name='age' type="number" min="1" step="1" max="60" placeholder="26" value="<?=$adress?>">
             <br>
             <br>
@@ -16,8 +16,19 @@
             <br>
             <br>
 
-            <label for="height">Telefoonnummer:</label>
+            <label for="height">Hoogte in cm:</label>
             <input name='height' type="number" min="40" max="300" step="0.1" placeholder="185" value="<?=$number?>">
+            <br>
+            <br>
+
+            <label for="show_jumping">Kan springsport:</label>
+            <input name='show_jumping' type="text" placeholder="ja" value="<?=$number?>">
+
+            <!-- <label for="show_jumping">Kan springsport:</label>
+            <select name='show_jumping' id="">
+                <option value="">ja</option>
+                <option value="">nee</option>
+            </select> -->
             <br>
             <br>
 

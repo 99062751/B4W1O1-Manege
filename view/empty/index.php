@@ -6,8 +6,8 @@
 
 
 	<div class="images">
-		<img src="images/horse.jpg" id="horse">
-		<img src="images/hangar.jpg" id="hangar">
+		<img src="http://localhost/Blok%204/leegmvc/public/images/horse.jpg" id="horse">
+		<img src="http://localhost/Blok%204/leegmvc/public/images/hangar.jpg" id="hangar">
 	</div>
 
 
