@@ -146,12 +146,29 @@ function ud_costumers(){
 
 
 function getreservation($id){
-    render('empty/buyreservation', $id);
+    $info_reservation= getcostumer($id,$tablename= "Reserveringen");
+    CalculatePrice($info_reservation);
 }
 
-function CalculatePrice(){
-    $priceH= 55;
-    $begin_time= "";
-    $end_time= "";
-    $begin_time- $end_time= $priceH; 
+function CalculatePrice($info_reservation){
+    $start_time= strtotime($info_reservation["Begintijd"]);
+    $end_time= strtotime($info_reservation["Eindtijd"]);
+
+    $STH= date("H", $start_time);
+    $STM= date("i", $start_time);
+
+    $ETH= date("H", $end_time);
+    $ETM= date("i", $end_time);
+
+    $start_time = $STH. $STM; 
+    $end_time= $ETH. $ETM; 
+
+    $ans= $end_time- $start_time;
+    $ans2= $ans / 60;
+
+
+    $ans3= 55 / 60; 
+    $price= $ans3 * $ans2;
+    $info_reservation["prijs"]= $price;
+    render('empty/buyreservation', $info_reservation);
 }
