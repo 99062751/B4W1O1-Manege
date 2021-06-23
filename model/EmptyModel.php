@@ -115,7 +115,7 @@
     }
 
     function UpdateCostumer($data){
-        echo $data["adress"];
+        echo $data["tel_nmbr"];
         // Maak hier de code om een medewerker te bewerken
 
         try {

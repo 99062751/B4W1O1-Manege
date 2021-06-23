@@ -23,7 +23,7 @@ $riders= getAllInfoFromTable();
 <?php   foreach ($riders as $r => $costumer) {  ?> 
         <tr>
             <td><?=$costumer["naam"]?></td>
-            <td><?=$costumer["adress"]?></td>
+            <td><?=$costumer["adres"]?></td>
             <td><?=$costumer["telefoonnmr"]?></td>
         </tr>
 <?php   }     ?>

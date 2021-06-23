@@ -30,7 +30,7 @@
                 <td class="list-item"><?=$reservation["datum"]?></td>
                 <td class="list-item"><?=date('H:i',strtotime($reservation["Begintijd"]));?></td>
                 <td class="list-item"><?=date('H:i',strtotime($reservation["Eindtijd"]));?></td>
-                <td> <a href="detailsreservation/<?=$reservation["id"]?>">Betalen</a></td>
+                <td> <a href="getreservation/<?=$reservation["id"]?>">Betalen</a></td>
             </tr></a>
            
 <?php   }     ?>

@@ -143,3 +143,15 @@ function myreservations(){
 function ud_costumers(){
     render('empty/UD_costumers');
 }
+
+
+function getreservation($id){
+    render('empty/buyreservation', $id);
+}
+
+function CalculatePrice(){
+    $priceH= 55;
+    $begin_time= "";
+    $end_time= "";
+    $begin_time- $end_time= $priceH; 
+}
