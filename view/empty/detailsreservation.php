@@ -1,4 +1,6 @@
+<?php
 
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +12,7 @@
 <body>
     <h1>Details reserveren</h1>
 
-    <form id="register" name="create" method="post" action="<?=URL?>empty/storeReservation">
+    <form id="register" name="create" method="post" action="<?=URL?>empty/ControleR">
             <!-- bouw hier je formulier -->
             <label for="name_resevator">Naam reserveerder:</label>
             <input name='name_resevator' type="text" placeholder="" value="<?=$namecostumer?>">
@@ -21,10 +23,10 @@
             <input name='name_horse' type="text" value="<?=$data['naam']?>">
             <br>
             <label for="race_horse">Ras:</label>
-            <input name='race_horse' type="text" value="<?=$data['ras']?>" disabled>
+            <input name='race_horse' type="text" value="<?=$data['ras']?>">
             <br>
             <label for="horse_height">Schofthoogte:</label>
-            <input name='horse_height' type="text" value="<?=$data['hoogte']?>" disabled>
+            <input name='horse_height' type="text" value="<?=$data['hoogte']?>">
             <br>
             <br>
 

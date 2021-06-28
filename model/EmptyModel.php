@@ -59,21 +59,22 @@
             // Open de verbinding met de database
             $conn=openDatabaseConnection();
 
-            // Zet de query klaar door midel van de prepare method. Voeg hierbij een
-            // WHERE clause toe (WHERE id = :id. Deze vullen we later in de code
-            $stmt = $conn->prepare("SELECT * FROM $tablename WHERE id = :id");
-            // Met bindParam kunnen we een parameter binden. Dit vult de waarde op de plaats in
-            // We vervangen :id in de query voor het id wat de functie binnen is gekomen.
-            $stmt->bindParam(":id", $id);
+            if (!empty($id) && is_numeric($id) && isset($id) && ($tablename == "Reserveringen" || $tablename == "Ruiters" || $tablename == "Paarden")) {
+                // Zet de query klaar door midel van de prepare method. Voeg hierbij een
+                // WHERE clause toe (WHERE id = :id. Deze vullen we later in de code
+                $stmt = $conn->prepare("SELECT * FROM `$tablename` WHERE id = :id");
+                // Met bindParam kunnen we een parameter binden. Dit vult de waarde op de plaats in
+                // We vervangen :id in de query voor het id wat de functie binnen is gekomen.
+                $stmt->bindParam(":id", $id);
 
-            // Voer de query uit
-            $stmt->execute();
+                // Voer de query uit
+                $stmt->execute();
 
-            // Haal alle resultaten op en maak deze op in een array
-            // In dit geval weten we zeker dat we maar 1 medewerker op halen (de where clause), 
-            //daarom gebruiken we hier de fetch functie.
-            $result = $stmt->fetch();
-
+                // Haal alle resultaten op en maak deze op in een array
+                // In dit geval weten we zeker dat we maar 1 medewerker op halen (de where clause), 
+                //daarom gebruiken we hier de fetch functie.
+                $result = $stmt->fetch();
+            }
         }
         catch(PDOException $e){
 
@@ -87,51 +88,46 @@
         return $result;
     }
 
-    function trimdata($var){
-        $var= trim($var);
-        $var= stripslashes($var);
-        $var= htmlspecialchars($var);
-        return $var;
-    }
-
     // CRUD klanten
 
-    function AddCostumer($data){
+    function AddCostumer($data, $error){
         // Maak hier de code om een medewerker toe te voegen
-        try {
-            $conn=openDatabaseConnection();
-            
-            $stmt = $conn->prepare("INSERT INTO Ruiters (naam, adres, telefoonnmr) VALUES(:naam, :adres, :telnmr)");
-            $stmt->bindParam(':naam', $data["name"]);
-            $stmt->bindParam(':adres', $data["adress"]);
-            $stmt->bindParam(':telnmr', $data["nummer"]);
-            $stmt->execute();
+        if((!empty($data["name"]) && !empty($data["adress"]) && !empty($data["nummer"])) && empty($error)){ 
+            try {
+                $conn=openDatabaseConnection();
+                
+                $stmt = $conn->prepare("INSERT INTO Ruiters (naam, adres, telefoonnmr) VALUES(:naam, :adres, :telnmr)");
+                $stmt->bindParam(':naam', $data["name"]);
+                $stmt->bindParam(':adres', $data["adress"]);
+                $stmt->bindParam(':telnmr', $data["nummer"]);
+                $stmt->execute();
+            }
+            catch(PDOException $e){
+                echo "Function AddCostumer Error. Connection failed: " . $e->getMessage();
+            }
         }
-        catch(PDOException $e){
-            echo "Function AddCostumer Error. Connection failed: " . $e->getMessage();
-        }
-
         $conn = null;
     }
 
     function UpdateCostumer($data){
-        echo $data["tel_nmbr"];
-        // Maak hier de code om een medewerker te bewerken
+        if((!empty($data["name"]) && !empty($data["adress"]) && !empty($data["nummer"])) && empty($error)){ 
+            // Maak hier de code om een medewerker te bewerken
 
-        try {
-            $conn=openDatabaseConnection();
+            try {
+                $conn=openDatabaseConnection();
 
-            $stmt = $conn->prepare("UPDATE Ruiters SET naam=:naam, adres=:adres, telefoonnmr=:telnmr WHERE id = :id");
-            $stmt->bindParam(':naam', $data["name_resevator"]);
-            $stmt->bindParam(':adres', $data["adress"]);
-            $stmt->bindParam(':telnmr', $data["tel_nmbr"]);
-            $stmt->bindParam(':id', $data["editID"]);
-            $stmt->execute(); 
+                $stmt = $conn->prepare("UPDATE Ruiters SET naam=:naam, adres=:adres, telefoonnmr=:telnmr WHERE id = :id");
+                $stmt->bindParam(':naam', $data["name"]);
+                $stmt->bindParam(':adres', $data["adress"]);
+                $stmt->bindParam(':telnmr', $data["tel_nmbr"]);
+                $stmt->bindParam(':id', $data["editID"]);
+                $stmt->execute(); 
+            }
+            catch(PDOException $e){
+                echo "Function UpdateCostumer Error. Connection failed: " . $e->getMessage();
+            }
+            $conn = null;
         }
-        catch(PDOException $e){
-            echo "Function UpdateCostumer Error. Connection failed: " . $e->getMessage();
-        }
-        $conn = null;
     }
 
     function DeleteCostumer($data){

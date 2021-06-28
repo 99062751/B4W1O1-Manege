@@ -1,6 +1,5 @@
 <?php
 $riders= getAllInfoFromTable();
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

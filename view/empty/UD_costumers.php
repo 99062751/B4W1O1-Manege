@@ -14,7 +14,7 @@
 
     <h2>Wijzig een klant:</h2>
 
-    <form id="register" name="create" method="post" action="<?=URL?>empty/EditCostumer">
+    <form id="register" name="create" method="post" action="<?=URL?>empty/ControleK">
             <!-- bouw hier je formulier -->
             <label for="editID">ID klant die gewijzigd moet worden:</label>
             <select name="editID" id="editID">
@@ -30,30 +30,25 @@
 
 
 
-            <label for="name_resevator">Nieuwe naam klant:</label>
-            <input type="text" value="<?=$name?>" name="name_resevator">
-
-        <!-- <select name="name_resevator" id="name_resevator">
-                         foreach ($riders as $r => $rider) {  ?>    
-
-                <option value="$rider["naam"]?>">$rider["naam"]?></option>
-
-                      } 
-        </select> -->
+            <label for="name">Nieuwe naam klant:</label>
+            <input type="text" value="<?=$name?>" name="name">
+            <p style="display: inline">* <?=$data["naam"]?></p>
             <br>
             <br>
 
             <label for="adress">Adres:</label>
-            <input name='adress' type="text" placeholder="Artonastaart 9" value="<?=$adress?>">
+            <input name='adress' type="text" placeholder="Artonastaart 9">
+            <p style="display: inline">* <?=$data["adres"]?></p>
             <br>
             <br>
 
             <label for="tel_nmbr">Telefoonnummer:</label>
-            <input name='tel_nmbr' type="text" placeholder="0612345678" value="<?=$nrumbe?>">
+            <input name='tel_nmbr' type="text" placeholder="0612345678">
+            <p style="display: inline">* <?=$data["nummer"]?></p>
             <br>
             <br>
 
-            <button type="submit">Wijzig</button>
+            <button name="update_costumer" type="submit">Wijzig</button>
 
         </form>
 
@@ -73,7 +68,7 @@
         <br>
         <br>
 
-        <button type="submit">Verwijder</button>
+        <button name="delete_costumer" type="submit">Verwijder</button>
 
 </form>   
 </body>

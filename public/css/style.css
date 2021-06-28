@@ -52,10 +52,10 @@ img#hangar{
 }
 
 
-form#register{
+form{
     margin: 0 auto;
     width: 500px;
-    height: 200px;
+    
     border: 3px solid white;
     background-color: black;
     padding: 20px;
