@@ -93,6 +93,47 @@ function ControleR(){
     storeReservation($data, $error);
 }
 
+/* ======== Controle Paard ========*/
+function ControleP(){
+    //naam controle
+    if(!is_numeric($_POST["name"]) && isset($_POST["name"]) && !empty($_POST["name"])){
+        $name= trimdata($_POST["name"]);
+        $data["name"]= $name;
+    }elseif(empty($_POST["name"])){
+        $error["naam"] = "Naam is leeg.";
+    }else{
+        $error["naam"] = "Er mogen geen cijfers of tekens in naam staan.";
+    }
+
+    //nieuwe naam controle
+    if(!is_numeric($_POST["newname"]) && isset($_POST["newname"]) && !empty($_POST["newname"])){
+        $newname= trimdata($_POST["newname"]);
+        $data["newname"]= $newname;
+    }elseif(empty($_POST["newname"])){
+        $error["nieuwenaam"] = "Naam is leeg.";
+    }else{
+        $error["nieuwenaam"] = "Er mogen geen cijfers of tekens in naam staan.";
+    }
+
+    //Ras controle
+    if(!is_numeric($_POST["race"]) && isset($_POST["race"]) && !empty($_POST["race"])){
+        $race= trimdata($_POST["race"]);
+        $data["race"]= $race;
+    }elseif(empty($_POST["race"])){
+        $error["race"] = "race is leeg.";
+    }else{
+        $error["race"] = "Er mogen geen cijfers of tekens in race staan.";
+    }
+    $data["age"]= $_POST["age"];
+    $data["show_jumping"]= $_POST["show_jumping"];
+    $data["height"]= $_POST["height"];
+
+    if(isset($_POST["add_horse"])){
+        AddHorse($data, $error);
+    }elseif(isset($_POST["update_horse"])){
+        ChangeHorse($data, $error);
+    }
+}
 /* ======== Klanten CRUD ========*/
 
 function storeCostumer($data, $error)
@@ -121,19 +162,17 @@ function RemoveCostumer(){
 
 /* ======== Paarden CRUD ========*/
 
-function AddHorse()
+function AddHorse($data, $error)
 {
-    $data = $_POST;
-    StoreHorse($data);
-    render('empty/overviewhorses');
+    StoreHorse($data, $error);
+    render('empty/UD_horses', $error);
 }
 
-function ChangeHorse()  
+function ChangeHorse($data, $error)  
 {
-    $data = $_POST;
     UpdateHorse($data);
 
-    render('empty/overviewhorses');
+    render('empty/UD_horses', $error);
 }
 
 function RemoveHorse()

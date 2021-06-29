@@ -25,9 +25,9 @@
 				<ul class="nav-list">
 					<li class="list-items"><a class="nav-links" href="<?=URL?>empty/index">HOME</a></li>
 					<li class="list-items"><a class="nav-links" href="<?=URL?>empty/about">OVER</a></li>
-					<li class="list-items"><a class="nav-links" href="<?=URL?>empty/overviewhorses">PAARDRIJDEN</a></li>
+					<li class="list-items"><a class="nav-links" href="<?=URL?>empty/overviewhorses">PAARDEN</a></li>
 					<li class="list-items"><a class="nav-links" href="<?=URL?>empty/riders">ONZE RUITERS</a></li>
-					<li class="list-items"><a class="nav-links" href="<?=URL?>empty/myreservations">MIJN RESERVERINGEN</a></li>
+					<li class="list-items"><a class="nav-links" href="<?=URL?>empty/myreservations">RESERVERINGEN</a></li>
 					<li class="list-items"><a class="nav-links" href="<?=URL?>empty/register">REGISTREREN</a></li>
 					<li class="list-items"><a class="nav-links" href="<?=URL?>empty/contact">CONTACT</a></li>
 				<?php 

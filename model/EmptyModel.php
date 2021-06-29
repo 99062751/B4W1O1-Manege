@@ -147,24 +147,27 @@
 
     // CRUD paarden
 
-    function StoreHorse($data){
+    function StoreHorse($data, $error){
+        echo $error["name_horse"];
         // Maak hier de code om een medewerker toe te voegen
-        try {
-            $conn=openDatabaseConnection();
-            
-            $stmt = $conn->prepare("INSERT INTO Paarden (naam, leeftijd, ras, hoogte, springsport) VALUES(:naam, :leeftijd, :ras, :hoogte, :springsport)");
-            $stmt->bindParam(':naam', $data["name"]);
-            $stmt->bindParam(':leeftijd', $data["age"]);
-            $stmt->bindParam(':ras', $data["race"]);
-            $stmt->bindParam(':hoogte', $data["height"]);
-            $stmt->bindParam(':springsport', $data["show_jumping"]);
-            $stmt->execute();
-        }
-        catch(PDOException $e){
-            echo "Function StoreHorse Error. Connection failed: " . $e->getMessage();
-        }
+        if((!empty($data["name"]) && !empty($data["race"]) && !empty($data["age"]) && !empty($data["height"]) && !empty($data["show_jumping"])) && empty($error)){ 
+            try {
+                $conn=openDatabaseConnection();
+                
+                $stmt = $conn->prepare("INSERT INTO Paarden (naam, leeftijd, ras, hoogte, springsport) VALUES(:naam, :leeftijd, :ras, :hoogte, :springsport)");
+                $stmt->bindParam(':naam', $data["name"]);
+                $stmt->bindParam(':leeftijd', $data["age"]);
+                $stmt->bindParam(':ras', $data["race"]);
+                $stmt->bindParam(':hoogte', $data["height"]);
+                $stmt->bindParam(':springsport', $data["show_jumping"]);
+                $stmt->execute();
+            }
+            catch(PDOException $e){
+                echo "Function StoreHorse Error. Connection failed: " . $e->getMessage();
+            }
 
-        $conn = null;
+            $conn = null;
+        }
     }
 
     function UpdateHorse($data){
@@ -175,7 +178,7 @@
             $conn=openDatabaseConnection();
 
             $stmt = $conn->prepare("UPDATE Paarden SET naam=:newname, leeftijd=:leeftijd, ras= :ras, hoogte= :hoogte, springsport= :springsport   WHERE naam = :naam");
-            $stmt->bindParam(':newname', $data["new-name"]);
+            $stmt->bindParam(':newname', $data["newname"]);
             $stmt->bindParam(':leeftijd', $data["age"]);
             $stmt->bindParam(':ras', $data["race"]);
             $stmt->bindParam(':hoogte', $data["height"]);
