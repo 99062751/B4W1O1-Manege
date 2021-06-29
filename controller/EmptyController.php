@@ -17,15 +17,17 @@ function trimdata($var){
 
 function ControleK(){
     //naam controle
-    if(!is_numeric($_POST["name"]) && isset($_POST["name"]) && !empty($_POST["name"])){
-            $name= trimdata($_POST["name"]);
-            $data["name"]= $name;
+    if(preg_match("/^([a-zA-Z' ]+)$/", $_POST["name"])){
+        $name= trimdata($_POST["name"]);
+        $data["name"]= $name;
     }elseif(empty($_POST["name"])){
         $error["naam"] = "Naam is leeg.";
+    }elseif(is_numeric($_POST["name"])){
+        $error["naam"] = "Er mogen geen cijfers.";
     }else{
-        $error["naam"] = "Er mogen geen cijfers of tekens in naam staan.";
+        $error["naam"] = "Naam bevat ongeldige tekens of bestaat niet.";
     }
-
+    
     //Adres controle
     if(preg_match("/^[a-zA-Z0-9-,' ]*$/", $_POST["adress"]) && !empty($_POST["adress"])){
         $adress= trimdata($_POST["adress"]);

@@ -14,8 +14,8 @@
 <h2>Voeg nieuwe reservering toe:</h2>
 <form id="register" name="create" method="post" action="<?=URL?>empty/storeReservation">
             <!-- bouw hier je formulier -->
-            <label for="name_resevator2">Naam reserveerder:</label>
-        <select name="name_resevator2" id="name_resevator2">
+            <label for="name_resevator">Naam reserveerder:</label>
+        <select name="name_resevator" id="name_resevator">
                         <?php foreach ($riders as $r => $rider) {  ?>     ?>
 
                 <option value="<?=$rider["naam"]?>"><?=$rider["naam"]?></option>

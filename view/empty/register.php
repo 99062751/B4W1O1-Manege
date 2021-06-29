@@ -14,7 +14,7 @@
         <form id="register" name="create" method="post" action="<?=URL?>empty/ControleK">
             <!-- bouw hier je formulier -->
             <label for="name">Naam:</label>
-            <input name='name' type="text" placeholder="Henk Vermeulen" value="<?=$name?>">
+            <input name='name' type="text" placeholder="Henk" value="<?=$name?>">
             <p style="display: inline">* <?=$data["naam"]?></p>
             <br>
             <br>
