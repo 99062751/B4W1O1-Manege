@@ -27,7 +27,7 @@ function ControleK(){
     }else{
         $error["naam"] = "Naam bevat ongeldige tekens of bestaat niet.";
     }
-    
+
     //Adres controle
     if(preg_match("/^[a-zA-Z0-9-,' ]*$/", $_POST["adress"]) && !empty($_POST["adress"])){
         $adress= trimdata($_POST["adress"]);
@@ -59,25 +59,100 @@ function ControleK(){
     }
 }
 
+/* ======== Controle Paard ========*/
+function ControleP(){
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+        if(isset($_POST["add_horse"])){
+             //naam controle
+            if(preg_match("/^([a-zA-Z' ]+)$/", $_POST["name"])){
+                $name= trimdata($_POST["name"]);
+                $data["name"]= $name;
+            }elseif(empty($_POST["name"])){
+                $error["naam"] = "Naam is leeg.";
+            }elseif(is_numeric($_POST["name"])){
+                $error["naam"] = "Er mogen geen cijfers.";
+            }else{
+                $error["naam"] = "Naam bevat ongeldige tekens of bestaat niet.";
+            }
+    
+            //Ras controle
+            if(preg_match("/^([a-zA-Z' ]+)$/", $_POST["newrace"])){
+                $newrace= trimdata($_POST["newrace"]);
+                $data["newrace"]= $newrace;
+            }elseif(empty($_POST["newrace"])){
+                $error["newrace"] = "Nieuwe newrace is leeg.";
+            }elseif(is_numeric($_POST["newrace"])){
+                $error["newrace"] = "Er mogen geen cijfers.";
+            }else{
+                $error["newrace"] = "Nieuwe newrace bevat ongeldige tekens of bestaat niet.";
+            }
+    
+            $data["age"]= $_POST["age"];
+            $data["show_jumping"]= $_POST["show_jumping"];
+            $data["height"]= $_POST["height"];
+    
+            if(isset($_POST["add_horse"])){
+                AddHorse($data, $error);
+            }elseif(isset($_POST["update_horse"])){
+                ChangeHorse($data, $error);
+            }
+        }else{
+            echo "werkt niet2";
+        }
+         
+        if(isset($_POST["update_horse"])){
+            //nieuwe naam controle
+            if(preg_match("/^([a-zA-Z' ]+)$/", $_POST["newname"])){
+                $newname= trimdata($_POST["newname"]);
+                $data["newname"]= $newname;
+            }elseif(empty($_POST["newname"])){
+                $error["nieuwenaam"] = "Nieuwe nieuwenaam is leeg.";
+            }elseif(is_numeric($_POST["newname"])){
+                $error["nieuwenaam"] = "Er mogen geen cijfers.";
+            }else{
+                $error["nieuwenaam"] = "Nieuwe nieuwenaam bevat ongeldige tekens of bestaat niet.";
+            }
+    
+            //nieuwe ras controle
+            if(preg_match("/^([a-zA-Z' ]+)$/", $_POST["race"])){
+                $race= trimdata($_POST["race"]);
+                $data["race"]= $race;
+            }elseif(empty($_POST["race"])){
+                $error["race"] = "Nieuwe race is leeg.";
+            }elseif(is_numeric($_POST["race"])){
+                $error["race"] = "Er mogen geen cijfers.";
+            }else{
+                $error["race"] = "Nieuwe race bevat ongeldige tekens of bestaat niet.";
+            }
+        }else{
+            echo "werkt niet1";
+        }
+    }
+}
+
 /* ======== Controle Reservering ========*/
 function ControleR(){
-    if(!is_numeric($_POST["name_resevator"]) && isset($_POST["name_resevator"]) && !empty($_POST["name_resevator"])){
+    if(preg_match("/^([a-zA-Z' ]+)$/", $_POST["name_resevator"])){
         $name_resevator= trimdata($_POST["name_resevator"]);
         $data["name_resevator"]= $name_resevator;
     }elseif(empty($_POST["name_resevator"])){
-        $error["naam_reseveerder"] = "Naam is leeg.";
+        $error["naam_reserveerder"] = "naam_reserveerder is leeg.";
+    }elseif(is_numeric($_POST["name"])){
+        $error["naam_reserveerder"] = "Er mogen geen cijfers.";
     }else{
-        $error["naam_reseveerder"] = "Er mogen geen cijfers of tekens in naam staan.";
+        $error["naam_reserveerder"] = "naam_reserveerder bevat ongeldige tekens of bestaat niet.";
     }
 
-
-    if(!is_numeric($_POST["name_horse"]) && isset($_POST["name_horse"]) && !empty($_POST["name_horse"])){
+    if(preg_match("/^([a-zA-Z' ]+)$/", $_POST["name_horse"])){
         $name_horse= trimdata($_POST["name_horse"]);
         $data["name_horse"]= $name_horse;
     }elseif(empty($_POST["name_horse"])){
-        $error["naam_paard"] = "Naam is leeg.";
+        $error["naam_paard"] = "naam_paard is leeg.";
+    }elseif(is_numeric($_POST["name"])){
+        $error["naam_paard"] = "Er mogen geen cijfers.";
     }else{
-        $error["naam_paard"] = "Er mogen geen cijfers of tekens in naam staan.";
+        $error["naam_paard"] = "naam_paard bevat ongeldige tekens of bestaat niet.";
     }
 
     
@@ -85,9 +160,11 @@ function ControleR(){
         $race_horse= trimdata($_POST["race_horse"]);
         $data["race_horse"]= $race_horse;
     }elseif(empty($_POST["race_horse"])){
-        $error["naam_paard"] = "Naam is leeg.";
+        $error["ras_paard"] = "ras_paard is leeg.";
+    }elseif(is_numeric($_POST["race_horse"])){
+        $error["naam_paard"] = "Er mogen geen cijfers.";
     }else{
-        $error["naam_paard"] = "Er mogen geen cijfers of tekens in naam staan.";
+        $error["ras_paard"] = "Er mogen geen cijfers of tekens in ras_paard staan.";
     }
 
     $data["start_time"]= $_POST["start_time"];
@@ -95,47 +172,6 @@ function ControleR(){
     storeReservation($data, $error);
 }
 
-/* ======== Controle Paard ========*/
-function ControleP(){
-    //naam controle
-    if(!is_numeric($_POST["name"]) && isset($_POST["name"]) && !empty($_POST["name"])){
-        $name= trimdata($_POST["name"]);
-        $data["name"]= $name;
-    }elseif(empty($_POST["name"])){
-        $error["naam"] = "Naam is leeg.";
-    }else{
-        $error["naam"] = "Er mogen geen cijfers of tekens in naam staan.";
-    }
-
-    //nieuwe naam controle
-    if(!is_numeric($_POST["newname"]) && isset($_POST["newname"]) && !empty($_POST["newname"])){
-        $newname= trimdata($_POST["newname"]);
-        $data["newname"]= $newname;
-    }elseif(empty($_POST["newname"])){
-        $error["nieuwenaam"] = "Naam is leeg.";
-    }else{
-        $error["nieuwenaam"] = "Er mogen geen cijfers of tekens in naam staan.";
-    }
-
-    //Ras controle
-    if(!is_numeric($_POST["race"]) && isset($_POST["race"]) && !empty($_POST["race"])){
-        $race= trimdata($_POST["race"]);
-        $data["race"]= $race;
-    }elseif(empty($_POST["race"])){
-        $error["race"] = "race is leeg.";
-    }else{
-        $error["race"] = "Er mogen geen cijfers of tekens in race staan.";
-    }
-    $data["age"]= $_POST["age"];
-    $data["show_jumping"]= $_POST["show_jumping"];
-    $data["height"]= $_POST["height"];
-
-    if(isset($_POST["add_horse"])){
-        AddHorse($data, $error);
-    }elseif(isset($_POST["update_horse"])){
-        ChangeHorse($data, $error);
-    }
-}
 /* ======== Klanten CRUD ========*/
 
 function storeCostumer($data, $error)

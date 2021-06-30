@@ -1,5 +1,5 @@
 <?php
-
+$resevators= getAllInfoFromTable($tablename= "Ruiters");
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +15,13 @@
     <form id="register" name="create" method="post" action="<?=URL?>empty/ControleR">
             <!-- bouw hier je formulier -->
             <label for="name_resevator">Naam reserveerder:</label>
-            <input name='name_resevator' type="text" placeholder="" value="<?=$namecostumer?>">
+            <select name="name_resevator" id="name_resevator">
+            <?php foreach ($resevators as $r => $resevator) {  ?>     ?>
+
+            <option value="<?=$resevator["naam"]?>"><?=$resevator["naam"]?></option>
+
+            <?php        } ?>
+            </select>
             <br>
             <br>
 
@@ -31,17 +37,17 @@
             <br>
 
             <label for="date">Datum:</label>
-            <input name='date' type="date" placeholder="" value="<?=$date?>">
+            <input name='date' type="date" placeholder="">
             <br>
             <br>
 
             <label for="start_time">Begintijd:</label>
-            <input name='start_time' type="time" placeholder="" value="<?=$time?>">
+            <input name='start_time' type="time" placeholder="">
             <br>
             <br>
 
             <label for="end_time">Eindtijd:</label>
-            <input name='end_time' type="time" placeholder="" value="<?=$endtime?>">
+            <input name='end_time' type="time" placeholder="">
             <br>
             <br>
 

@@ -15,9 +15,9 @@
             <br>
             <br>
 
-            <label for="race">Ras:</label>
-            <input name='race' type="text" placeholder="Pony">
-            <p style="display: inline">* <?=$data["race"]?></p>
+            <label for="newrace">Ras:</label>
+            <input name='newrace' type="text" placeholder="Pony">
+            <p style="display: inline">* <?=$data["newrace"]?></p>
             <br>
             <br>
 
@@ -40,7 +40,7 @@
 
     <h2>Wijzig een paard:</h2>
 
-<form id="register" name="create" method="post" action="<?=URL?>empty/ControleP">
+<form id="register" name="update" method="post" action="<?=URL?>empty/ControleP">
         <!-- bouw hier je formulier -->
         <label for="name">ID paard die gewijzigd moet worden:</label>
             <select name="name" id="name">
