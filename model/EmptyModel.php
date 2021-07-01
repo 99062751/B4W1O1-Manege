@@ -90,9 +90,10 @@
 
     // CRUD klanten
 
-    function AddCostumer($data, $error){
+    function AddCostumer($data){
         // Maak hier de code om een medewerker toe te voegen
-        if((!empty($data["name"]) && !empty($data["adress"]) && !empty($data["nummer"])) && empty($error)){ 
+        if((!empty($data["name"]) && !empty($data["adress"]) && !empty($data["nummer"]))){ 
+            echo "werkt wel";
             try {
                 $conn=openDatabaseConnection();
                 
@@ -147,17 +148,17 @@
 
     // CRUD paarden
 
-    function StoreHorse($data, $error){
+    function StoreHorse($data){
         echo $error["name_horse"];
         // Maak hier de code om een medewerker toe te voegen
-        if((!empty($data["name"]) && !empty($data["race"]) && !empty($data["age"]) && !empty($data["height"]) && !empty($data["show_jumping"])) && empty($error)){ 
+        if((!empty($data["name"]) && !empty($data["newrace"]) && !empty($data["age"]) && !empty($data["height"]) && !empty($data["show_jumping"]))){ 
             try {
                 $conn=openDatabaseConnection();
                 
                 $stmt = $conn->prepare("INSERT INTO Paarden (naam, leeftijd, ras, hoogte, springsport) VALUES(:naam, :leeftijd, :ras, :hoogte, :springsport)");
                 $stmt->bindParam(':naam', $data["name"]);
                 $stmt->bindParam(':leeftijd', $data["age"]);
-                $stmt->bindParam(':ras', $data["race"]);
+                $stmt->bindParam(':ras', $data["newrace"]);
                 $stmt->bindParam(':hoogte', $data["height"]);
                 $stmt->bindParam(':springsport', $data["show_jumping"]);
                 $stmt->execute();
@@ -172,39 +173,41 @@
 
     function UpdateHorse($data){
         // Maak hier de code om een medewerker te bewerken
-        $oldname= $data["name"];
+        if((!empty($data["newname"]) && !empty($data["race"]) && !empty($data["update_age"]) && !empty($data["update_height"]) && !empty($data["update_show_jumping"]))){ 
+            try {
+                $conn=openDatabaseConnection();
 
-        try {
-            $conn=openDatabaseConnection();
-
-            $stmt = $conn->prepare("UPDATE Paarden SET naam=:newname, leeftijd=:leeftijd, ras= :ras, hoogte= :hoogte, springsport= :springsport   WHERE naam = :naam");
-            $stmt->bindParam(':newname', $data["newname"]);
-            $stmt->bindParam(':leeftijd', $data["age"]);
-            $stmt->bindParam(':ras', $data["race"]);
-            $stmt->bindParam(':hoogte', $data["height"]);
-            $stmt->bindParam(':springsport', $data["show_jumping"]);
-            $stmt->bindParam(':naam', $oldname);
-            $stmt->execute(); 
+                $stmt = $conn->prepare("UPDATE Paarden SET naam=:newname, leeftijd=:leeftijd, ras= :ras, hoogte= :hoogte, springsport= :springsport WHERE id = :updateID");
+                $stmt->bindParam(':newname', $data["newname"]);
+                $stmt->bindParam(':leeftijd', $data["update_age"]);
+                $stmt->bindParam(':ras', $data["race"]);
+                $stmt->bindParam(':hoogte', $data["update_height"]);
+                $stmt->bindParam(':springsport', $data["update_show_jumping"]);
+                $stmt->bindParam(':updateID', $data["updateID"]);
+                $stmt->execute(); 
+            }
+            catch(PDOException $e){
+                echo "Function UpdateCostumer Error. Connection failed: " . $e->getMessage();
+            }
+            $conn = null;
         }
-        catch(PDOException $e){
-            echo "Function UpdateCostumer Error. Connection failed: " . $e->getMessage();
-        }
-        $conn = null;
     }
 
     function DeleteHorse($data){
-        // Maak hier de code om een medewerker te verwijderen
-        try {      
-            $conn=openDatabaseConnection();
+        if(!empty($data["id"]) && is_numeric($data["id"])){     
+            // Maak hier de code om een medewerker te verwijderen
+            try {      
+                $conn=openDatabaseConnection();
 
-            $stmt = $conn->prepare("DELETE FROM Paarden WHERE naam = :naam");
-            $stmt->bindParam(':naam', $data["name"]);
-            $stmt->execute();  
+                $stmt = $conn->prepare("DELETE FROM Paarden WHERE id = :id");
+                $stmt->bindParam(':id', $data["id"]);
+                $stmt->execute();  
+            }
+            catch(PDOException $e){
+                echo "Function DeleteHorse Error. Connection failed: " . $e->getMessage();
+            }
+            $conn = null;
         }
-        catch(PDOException $e){
-            echo "Function DeleteHorse Error. Connection failed: " . $e->getMessage();
-        }
-        $conn = null;
     }
 
     //CRUD reserveringen

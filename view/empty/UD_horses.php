@@ -22,7 +22,7 @@
             <br>
 
             <label for="height">Hoogte in cm:</label>
-            <input name='height' type="number" min="40" max="300" step="0.1" placeholder="185">
+            <input name='height' type="number" min="40" max="300" step="0.1" placeholder="185" value="">
             <br>
             <br>
 
@@ -42,10 +42,10 @@
 
 <form id="register" name="update" method="post" action="<?=URL?>empty/ControleP">
         <!-- bouw hier je formulier -->
-        <label for="name">ID paard die gewijzigd moet worden:</label>
-            <select name="name" id="name">
+        <label for="updateID">ID paard die gewijzigd moet worden:</label>
+            <select name="updateID" id="updateID">
                 <?php foreach ($horses as $h => $horse) {  ?>     
-                <option value="<?=$horse["id"]?>"><?=$horse["id"]?></option>
+                <option value="<?=$horse["id"]?>"><?=$horse["naam"]?></option>
 
                 <?php        } ?>
                 </select>
@@ -58,8 +58,8 @@
         <br>
         <br>
 
-        <label for="age">Leeftijd:</label>
-        <input name='age' type="number" min="1" step="1" max="60" placeholder="26" value="<?=$adress?>">
+        <label for="update_age">Leeftijd:</label>
+        <input name='update_age' type="number" min="1" step="1" max="60" placeholder="26" value="<?=$adress?>">
         <br>
         <br>
 
@@ -69,14 +69,14 @@
         <br>
         <br>
 
-        <label for="height">Hoogte in cm:</label>
-        <input name='height' type="number" min="40" max="300" step="0.1" placeholder="185">
+        <label for="update_height">Hoogte in cm:</label>
+        <input name='update_height' type="number" min="40" max="300" step="0.1" placeholder="185">
         <br>
         <br>
 
-        <label for="show_jumping">Kan springsport:</label>
+        <label for="update_show_jumping">Kan springsport:</label>
 
-        <select name='show_jumping' id="show_jumping">
+        <select name='update_show_jumping' id="update_show_jumping">
         <option value="ja">ja</option>
         <option value="nee">nee</option>
         </select>
@@ -89,8 +89,8 @@
 <h2>Verwijder een paard:</h2>
 <form id="register" name="create" method="post" action="<?=URL?>empty/RemoveHorse">
         <!-- bouw hier je formulier -->
-        <label for="name">Naam paard die gewijzigd moet worden:</label>
-            <select name="name" id="name">
+        <label for="id">Naam paard die gewijzigd moet worden:</label>
+            <select name="id" id="id">
                 <?php foreach ($horses as $h => $horse) {  ?>     
                 <option value="<?=$horse["id"]?>"><?=$horse["naam"]?></option>
 

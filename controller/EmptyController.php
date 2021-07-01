@@ -62,7 +62,6 @@ function ControleK(){
 /* ======== Controle Paard ========*/
 function ControleP(){
     if($_SERVER["REQUEST_METHOD"] == "POST"){
-
         if(isset($_POST["add_horse"])){
              //naam controle
             if(preg_match("/^([a-zA-Z' ]+)$/", $_POST["name"])){
@@ -92,13 +91,7 @@ function ControleP(){
             $data["show_jumping"]= $_POST["show_jumping"];
             $data["height"]= $_POST["height"];
     
-            if(isset($_POST["add_horse"])){
-                AddHorse($data, $error);
-            }elseif(isset($_POST["update_horse"])){
-                ChangeHorse($data, $error);
-            }
-        }else{
-            echo "werkt niet2";
+            AddHorse($data, $error);
         }
          
         if(isset($_POST["update_horse"])){
@@ -125,8 +118,14 @@ function ControleP(){
             }else{
                 $error["race"] = "Nieuwe race bevat ongeldige tekens of bestaat niet.";
             }
+            $data["update_age"]= $_POST["update_age"];
+            $data["update_show_jumping"]= $_POST["update_show_jumping"];
+            $data["update_height"]= $_POST["update_height"];
+            $data["updateID"]= $_POST["updateID"];
+
+            ChangeHorse($data, $error);
         }else{
-            echo "werkt niet1";
+            echo "werkt niet update";
         }
     }
 }
@@ -202,7 +201,7 @@ function RemoveCostumer(){
 
 function AddHorse($data, $error)
 {
-    StoreHorse($data, $error);
+    StoreHorse($data);
     render('empty/UD_horses', $error);
 }
 
@@ -215,11 +214,11 @@ function ChangeHorse($data, $error)
 
 function RemoveHorse()
 {
+    $data = $_POST;
     //1. Delete een medewerker uit de database
-    $data= $_POST;
     DeleteHorse($data);
     //2. Bouw een url en redirect hierheen
-    render('empty/overviewhorses');   
+    render('empty/UD_horses');   
 }
 
 /* ======== Reserveringen CRUD ========*/
