@@ -1,18 +1,17 @@
     <?php
-        function checkConnection(){
-            try{ 
-                $conn = openDatabaseConnection(); 
-                $stmt = $conn->prepare("SHOW TABLES");
-                $stmt->execute();
-                $stmt->fetchAll();
-                
-            }catch(Exception $e){
-                return false;
-            }
-
-            return true;
+    function checkConnection(){
+        try{ 
+            $conn = openDatabaseConnection(); 
+            $stmt = $conn->prepare("SHOW TABLES");
+            $stmt->execute();
+            $stmt->fetchAll();
+            
+        }catch(Exception $e){
+            return false;
         }
 
+        return true;
+    }
 
     function getAllInfoFromTable($tablename= "Ruiters"){
         // Met het try statement kunnen we code proberen uit te voeren. Wanneer deze
@@ -213,57 +212,65 @@
     //CRUD reserveringen
 
     function AddReservation($data){
-        // Maak hier de code om een medewerker toe te voegen
-  
-        try {
-            $conn=openDatabaseConnection();
-            
-            $stmt = $conn->prepare("INSERT INTO Reserveringen (ruiter, paard, datum, Begintijd, Eindtijd) VALUES(:ruiter, :paard, :datum, :Begintijd, :Eindtijd)");
-            $stmt->bindParam(':ruiter', $data["name_resevator"]);
-            $stmt->bindParam(':paard', $data["name_horse"]);
-            $stmt->bindParam(':datum', $data["date"]);
-            $stmt->bindParam(':Begintijd', $data["start_time"]);
-            $stmt->bindParam(':Eindtijd', $data["end_time"]);
-            $stmt->execute();
-        }
-        catch(PDOException $e){
-            echo "Function AddReservation Error. Connection failed: " . $e->getMessage();
-        }
+        if((!empty($data["name_resevator"]) && !empty($data["name_horse"]) && !empty($data["date"]) && !empty($data["start_time"]) && !empty($data["end_time"]))){ 
+            // Maak hier de code om een medewerker toe te voegen
+    
+            try {
+                $conn=openDatabaseConnection();
+                
+                $stmt = $conn->prepare("INSERT INTO Reserveringen (ruiter, paard, datum, Begintijd, Eindtijd) VALUES(:ruiter, :paard, :datum, :Begintijd, :Eindtijd)");
+                $stmt->bindParam(':ruiter', $data["name_resevator"]);
+                $stmt->bindParam(':paard', $data["name_horse"]);
+                $stmt->bindParam(':datum', $data["date"]);
+                $stmt->bindParam(':Begintijd', $data["start_time"]);
+                $stmt->bindParam(':Eindtijd', $data["end_time"]);
+                $stmt->execute();
+            }
+            catch(PDOException $e){
+                echo "Function AddReservation Error. Connection failed: " . $e->getMessage();
+            }
 
-        $conn = null;
+            $conn = null;
+        }
     }
 
     function UpdateReservation($data){
-        // Maak hier de code om een medewerker te bewerken
-        try {
-            $conn=openDatabaseConnection();
+        if((!empty($data["name_resevator"]) && !empty($data["name_horse"]) && !empty($data["date"]) && !empty($data["start_time"]) && !empty($data["end_time"]))){ 
+            // Maak hier de code om een medewerker te bewerken
+            try {
+                $conn=openDatabaseConnection();
 
-            $stmt = $conn->prepare("UPDATE Reserveringen SET ruiter=:ruiter, paard=:paard, datum=:datum, Begintijd=:Begintijd, Eindtijd=:Eindtijd  WHERE id = :id");
-            $stmt->bindParam(':ruiter', $data["name_resevator"]);
-            $stmt->bindParam(':paard', $data["name_horse"]);
-            $stmt->bindParam(':datum', $data["date"]);
-            $stmt->bindParam(':Begintijd', $data["start_time"]);
-            $stmt->bindParam(':Eindtijd', $data["end_time"]);
-            $stmt->bindParam(':id', $data["editID"]);
-            $stmt->execute(); 
+                $stmt = $conn->prepare("UPDATE Reserveringen SET ruiter=:ruiter, paard=:paard, datum=:datum, Begintijd=:Begintijd, Eindtijd=:Eindtijd  WHERE id = :id");
+                $stmt->bindParam(':ruiter', $data["name_resevator"]);
+                $stmt->bindParam(':paard', $data["name_horse"]);
+                $stmt->bindParam(':datum', $data["date"]);
+                $stmt->bindParam(':Begintijd', $data["start_time"]);
+                $stmt->bindParam(':Eindtijd', $data["end_time"]);
+                $stmt->bindParam(':id', $data["editID"]);
+                $stmt->execute(); 
+            }
+            catch(PDOException $e){
+                echo "Function UpdateReservation Error. Connection failed: " . $e->getMessage();
+            }
+            $conn = null;
         }
-        catch(PDOException $e){
-            echo "Function UpdateReservation Error. Connection failed: " . $e->getMessage();
-        }
-        $conn = null;
     }
 
     function DeleteReservation($data){
-        // Maak hier de code om een medewerker te verwijderen
-        try {      
-            $conn=openDatabaseConnection();
+        if(!empty($data["id"]) && is_numeric($data["id"])){ 
+            // Maak hier de code om een medewerker te verwijderen
+            try {      
+                $conn=openDatabaseConnection();
 
-            $stmt = $conn->prepare("DELETE FROM Reserveringen WHERE id = :id");
-            $stmt->bindParam(':id', $data["id"]);
-            $stmt->execute();  
+                $stmt = $conn->prepare("DELETE FROM Reserveringen WHERE id = :id");
+                $stmt->bindParam(':id', $data["id"]);
+                $stmt->execute();  
+            }
+            catch(PDOException $e){
+                echo "Function DeleteReservation Error. Connection failed: " . $e->getMessage();
+            }
+            $conn = null;
+        }else{
+            echo "id is vals";
         }
-        catch(PDOException $e){
-            echo "Function DeleteReservation Error. Connection failed: " . $e->getMessage();
-        }
-        $conn = null;
     }

@@ -16,50 +16,52 @@ function trimdata($var){
 }
 
 function ControleK(){
-    //naam controle
-    if(preg_match("/^([a-zA-Z' ]+)$/", $_POST["name"])){
-        $name= trimdata($_POST["name"]);
-        $data["name"]= $name;
-    }elseif(empty($_POST["name"])){
-        $error["naam"] = "Naam is leeg.";
-    }elseif(is_numeric($_POST["name"])){
-        $error["naam"] = "Er mogen geen cijfers.";
-    }else{
-        $error["naam"] = "Naam bevat ongeldige tekens of bestaat niet.";
-    }
-
-    //Adres controle
-    if(preg_match("/^[a-zA-Z0-9-,' ]*$/", $_POST["adress"]) && !empty($_POST["adress"])){
-        $adress= trimdata($_POST["adress"]);
-        $data["adress"]= $adress;
-    }elseif(empty($_POST["adress"])){
-        $error["adres"] = "Adres is leeg.";
-    }else{
-        $error["adres"] = "Adres bestaat niet.";
-    }
-
-  //telefoonnummer controle
-    if(is_numeric($_POST["nummer"]) && isset($_POST["nummer"]) && !empty($_POST["nummer"])){
-        $minDigits= 10; 
-        $maxDigits= 14; 
-        if(preg_match('/^[0-9]{'.$minDigits.','.$maxDigits.'}\z/', $_POST["nummer"])){
-            $number= trimdata($_POST["nummer"]);
-            $data["nummer"]= $number;
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        //naam controle
+        if(preg_match("/^([a-zA-Z' ]+)$/", $_POST["name"])){
+            $name= trimdata($_POST["name"]);
+            $data["name"]= $name;
+        }elseif(empty($_POST["name"])){
+            $error["naam"] = "Naam is leeg.";
+        }elseif(is_numeric($_POST["name"])){
+            $error["naam"] = "Er mogen geen cijfers.";
+        }else{
+            $error["naam"] = "Naam bevat ongeldige tekens.";
         }
-    }elseif(empty($_POST["nummer"])){
-        $error["nummer"] = "Telefoonnummer is leeg.";
-    }else{
-        $error["nummer"] = "Telefoonnummer mag geen letters of tekens bevatten! ";
-    }
-       
-    if(isset($_POST["register_costumer"])){
-        storeCostumer($data, $error);
-    }elseif(isset($_POST["update_costumer"])){
-        EditCostumer($data, $error);
+
+        //Adres controle
+        if(preg_match("/^[a-zA-Z0-1000-,' ]*$/", $_POST["adress"]) && !empty($_POST["adress"])){
+            $adress= trimdata($_POST["adress"]);
+            $data["adress"]= $adress;
+        }elseif(empty($_POST["adress"])){
+            $error["adres"] = "Adres is leeg.";
+        }else{
+            $error["adres"] = "Adres bestaat niet.";
+        }
+
+    //telefoonnummer controle
+        if(is_numeric($_POST["nummer"]) && isset($_POST["nummer"]) && !empty($_POST["nummer"])){
+            $minDigits= 10; 
+            $maxDigits= 14; 
+            if(preg_match('/^[0-10]{'.$minDigits.','.$maxDigits.'}\z/', $_POST["nummer"])){
+                $number= trimdata($_POST["nummer"]);
+                $data["nummer"]= $number;
+            }
+        }elseif(empty($_POST["nummer"])){
+            $error["nummer"] = "Telefoonnummer is leeg.";
+        }else{
+            $error["nummer"] = "Telefoonnummer mag geen letters of tekens bevatten! ";
+        }
+        
+        if(isset($_POST["register_costumer"])){
+            storeCostumer($data, $error);
+        }elseif(isset($_POST["update_costumer"])){
+            EditCostumer($data, $error);
+        }
     }
 }
 
-/* ======== Controle Paard ========*/
+/* ======== Controle Paarden ========*/
 function ControleP(){
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(isset($_POST["add_horse"])){
@@ -132,43 +134,91 @@ function ControleP(){
 
 /* ======== Controle Reservering ========*/
 function ControleR(){
-    if(preg_match("/^([a-zA-Z' ]+)$/", $_POST["name_resevator"])){
-        $name_resevator= trimdata($_POST["name_resevator"]);
-        $data["name_resevator"]= $name_resevator;
-    }elseif(empty($_POST["name_resevator"])){
-        $error["naam_reserveerder"] = "naam_reserveerder is leeg.";
-    }elseif(is_numeric($_POST["name"])){
-        $error["naam_reserveerder"] = "Er mogen geen cijfers.";
-    }else{
-        $error["naam_reserveerder"] = "naam_reserveerder bevat ongeldige tekens of bestaat niet.";
-    }
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        if(isset($_POST["add_reservation"])){
+            if(preg_match("/^([a-zA-Z' ]+)$/", $_POST["name_resevator"])){
+                $name_resevator= trimdata($_POST["name_resevator"]);
+                $data["name_resevator"]= $name_resevator;
+            }elseif(empty($_POST["name_resevator"])){
+                $error["naam_reserveerder"] = "naam_reserveerder is leeg.";
+            }elseif(is_numeric($_POST["name"])){
+                $error["naam_reserveerder"] = "Er mogen geen cijfers.";
+            }else{
+                $error["naam_reserveerder"] = "naam_reserveerder bevat ongeldige tekens of bestaat niet.";
+            }
 
-    if(preg_match("/^([a-zA-Z' ]+)$/", $_POST["name_horse"])){
-        $name_horse= trimdata($_POST["name_horse"]);
-        $data["name_horse"]= $name_horse;
-    }elseif(empty($_POST["name_horse"])){
-        $error["naam_paard"] = "naam_paard is leeg.";
-    }elseif(is_numeric($_POST["name"])){
-        $error["naam_paard"] = "Er mogen geen cijfers.";
-    }else{
-        $error["naam_paard"] = "naam_paard bevat ongeldige tekens of bestaat niet.";
-    }
+            if(preg_match("/^([a-zA-Z' ]+)$/", $_POST["name_horse"])){
+                $name_horse= trimdata($_POST["name_horse"]);
+                $data["name_horse"]= $name_horse;
+            }elseif(empty($_POST["name_horse"])){
+                $error["naam_paard"] = "naam_paard is leeg.";
+            }elseif(is_numeric($_POST["name"])){
+                $error["naam_paard"] = "Er mogen geen cijfers.";
+            }else{
+                $error["naam_paard"] = "naam_paard bevat ongeldige tekens of bestaat niet.";
+            }
 
-    
-    if(!is_numeric($_POST["race_horse"]) && isset($_POST["race_horse"]) && !empty($_POST["race_horse"])){
-        $race_horse= trimdata($_POST["race_horse"]);
-        $data["race_horse"]= $race_horse;
-    }elseif(empty($_POST["race_horse"])){
-        $error["ras_paard"] = "ras_paard is leeg.";
-    }elseif(is_numeric($_POST["race_horse"])){
-        $error["naam_paard"] = "Er mogen geen cijfers.";
-    }else{
-        $error["ras_paard"] = "Er mogen geen cijfers of tekens in ras_paard staan.";
-    }
+            if(!is_numeric($_POST["race_horse"]) && isset($_POST["race_horse"]) && !empty($_POST["race_horse"])){
+                $race_horse= trimdata($_POST["race_horse"]);
+                $data["race_horse"]= $race_horse;
+            }elseif(empty($_POST["race_horse"])){
+                $error["ras_paard"] = "ras_paard is leeg.";
+            }elseif(is_numeric($_POST["race_horse"])){
+                $error["naam_paard"] = "Er mogen geen cijfers.";
+            }else{
+                $error["ras_paard"] = "Er mogen geen cijfers of tekens in ras_paard staan.";
+            }
 
-    $data["start_time"]= $_POST["start_time"];
-    $data["end_time"]= $_POST["end_time"];
-    storeReservation($data, $error);
+            $data["date"]= $_POST["date"];
+            $data["start_time"]= $_POST["start_time"];
+            $data["end_time"]= $_POST["end_time"];
+            $data["editID"]= $_POST["editID"];
+            
+            storeReservation($data, $error);
+        }
+        
+        if(isset($_POST["update_reservation"])){
+            if(preg_match("/^([a-zA-Z' ]+)$/", $_POST["name_resevator"])){
+                $name_resevator= trimdata($_POST["name_resevator"]);
+                $data["name_resevator"]= $name_resevator;
+            }elseif(empty($_POST["name_resevator"])){
+                $error["naam_reserveerder"] = "naam_reserveerder is leeg.";
+            }elseif(is_numeric($_POST["name"])){
+                $error["naam_reserveerder"] = "Er mogen geen cijfers.";
+            }else{
+                $error["naam_reserveerder"] = "naam_reserveerder bevat ongeldige tekens of bestaat niet.";
+            }
+
+            if(preg_match("/^([a-zA-Z' ]+)$/", $_POST["naam_paard_update"])){
+                $naam_paard_update= trimdata($_POST["naam_paard_update"]);
+                $data["naam_paard_update"]= $naam_paard_update;
+            }elseif(empty($_POST["naam_paard_update"])){
+                $error["naam_paard_update"] = "naam_paard_update is leeg.";
+            }elseif(is_numeric($_POST["naam_paard_update"])){
+                $error["naam_paard_update"] = "Er mogen geen cijfers.";
+            }else{
+                $error["naam_paard_update"] = "naam_paard_update bevat ongeldige tekens of bestaat niet.";
+            }
+
+            if(!is_numeric($_POST["race_horse"]) && isset($_POST["race_horse"]) && !empty($_POST["race_horse"])){
+                $race_horse= trimdata($_POST["race_horse"]);
+                $data["race_horse"]= $race_horse;
+            }elseif(empty($_POST["race_horse"])){
+                $error["ras_paard"] = "ras_paard is leeg.";
+            }elseif(is_numeric($_POST["race_horse"])){
+                $error["naam_paard"] = "Er mogen geen cijfers.";
+            }else{
+                $error["ras_paard"] = "Er mogen geen cijfers of tekens in ras_paard staan.";
+            }
+
+            $data["date"]= $_POST["date"];
+            $data["start_time"]= $_POST["start_time"];
+            $data["end_time"]= $_POST["end_time"];
+            $data["editID"]= $_POST["editID"];
+
+            ChangeReservation($data, $error);
+        }
+    }
 }
 
 /* ======== Klanten CRUD ========*/
@@ -178,7 +228,7 @@ function storeCostumer($data, $error)
     //1. Maak een nieuwe medewerker aan met de data uit het formulier en sla deze op in de database
     AddCostumer($data, $error); 
     //2. Bouw een url op en redirect hierheen
-    render('empty/register', $error);
+    render('empty/riders', $error);
 }
 
 function EditCostumer($data, $error)
@@ -187,7 +237,7 @@ function EditCostumer($data, $error)
     updateCostumer($data);
    
     //2. Bouw een url en redirect hierheen
-    render('empty/UD_costumers', $error);
+    render('empty/riders', $error);
 }
 
 function RemoveCostumer(){
@@ -202,14 +252,14 @@ function RemoveCostumer(){
 function AddHorse($data, $error)
 {
     StoreHorse($data);
-    render('empty/UD_horses', $error);
+    render('empty/overviewhorses', $error);
 }
 
 function ChangeHorse($data, $error)  
 {
     UpdateHorse($data);
 
-    render('empty/UD_horses', $error);
+    render('empty/overviewhorses', $error);
 }
 
 function RemoveHorse()
@@ -218,25 +268,22 @@ function RemoveHorse()
     //1. Delete een medewerker uit de database
     DeleteHorse($data);
     //2. Bouw een url en redirect hierheen
-    render('empty/UD_horses');   
+    render('empty/overviewhorses');   
 }
 
 /* ======== Reserveringen CRUD ========*/
 
-function StoreReservation()
+function StoreReservation($data, $error)
 {
-    $data = $_POST;
-    echo "lol";
     AddReservation($data);
-    render('empty/myreservations');
+    render('empty/UD_reservation', $error);
 }
 
-function ChangeReservation()  
+function ChangeReservation($data, $error)  
 {
-    $data = $_POST;
     UpdateReservation($data);
 
-    render('empty/myreservations');
+    render('empty/UD_reservation', $error);
 }
 
 function RemoveReservation()
@@ -245,7 +292,7 @@ function RemoveReservation()
     $data= $_POST;
     DeleteReservation($data);
     //2. Bouw een url en redirect hierheen
-    render('empty/myreservations');   
+    render('empty/UD_reservation');   
 }
 
 /* ======== Manege url's ========*/
@@ -310,6 +357,8 @@ function getreservation($id){
 }
 
 function CalculatePrice($info_reservation){
+    // €55 per uur
+
     $start_time= strtotime($info_reservation["Begintijd"]);
     $end_time= strtotime($info_reservation["Eindtijd"]);
 
@@ -322,11 +371,10 @@ function CalculatePrice($info_reservation){
     $start_time = $STH. $STM; 
     $end_time= $ETH. $ETM; 
 
-    $ans= $end_time- $start_time;
+    $ans= $start_time- $end_time;
     $ans2= $ans / 60;
 
-
-    $ans3= 55 / 60; 
+    $ans3= 55 / 60;
     $price= $ans3 * $ans2;
     $info_reservation["prijs"]= $price;
     render('empty/buyreservation', $info_reservation);

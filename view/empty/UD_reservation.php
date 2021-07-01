@@ -12,7 +12,7 @@
 </head>
 <body>
 <h2>Voeg nieuwe reservering toe:</h2>
-<form id="register" name="create" method="post" action="<?=URL?>empty/storeReservation">
+<form id="register" name="create" method="post" action="<?=URL?>empty/ControleR">
             <!-- bouw hier je formulier -->
             <label for="name_resevator">Naam reserveerder:</label>
         <select name="name_resevator" id="name_resevator">
@@ -26,7 +26,8 @@
             <br>
 
             <label for="name_horse">Naam paard:</label>
-            <input name='name_horse' type="text" value="<?=$data['naam']?>" >
+            <input name='name_horse' type="text" value="<?=$data['naam']?>">
+            <p style="display: inline">* <?=$data["naam_paard"]?></p>
             <br>
             <br>
 
@@ -45,13 +46,13 @@
             <br>
             <br>
 
-            <button type="submit">Voeg toe</button>
+            <button name="add_reservation" type="submit">Voeg toe</button>
 
         </form>
 
     <h2>Wijzig een reservering:</h2>
 
-    <form id="register" name="create" method="post" action="<?=URL?>empty/ChangeReservation">
+    <form id="register" name="create" method="post" action="<?=URL?>empty/ControleR">
             <!-- bouw hier je formulier -->
             <label for="editID">ID reservering die gewijzigd moet worden:</label>
             <select name="editID" id="editID">
@@ -80,6 +81,7 @@
 
             <label for="name_horse">Naam paard:</label>
             <input name='name_horse' type="text" placeholder="<?=$horse["name"]?>" value="<?=$data['naam']?>">
+            <p style="display: inline">* <?=$data["naam_paard_update"]?></p>
             <br>
 
             <label for="date">Datum:</label>
@@ -97,7 +99,7 @@
             <br>
             <br>
 
-            <button type="submit">Wijzig</button>
+            <button name="update_reservation" type="submit">Wijzig</button>
 
         </form>
 
