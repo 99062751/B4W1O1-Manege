@@ -13,21 +13,21 @@
 
         <form id="register" name="create" method="post" action="<?=URL?>empty/ControleK">
             <!-- bouw hier je formulier -->
-            <label for="name">Naam:</label>
-            <input name='name' type="text" placeholder="Henk" value="<?=$name?>">
-            <p style="display: inline">* <?=$data["naam"]?></p>
+            <label for="name_costumer">Naam:</label>
+            <input name='name_costumer' type="text" placeholder="Henk" value="<?=$name?>">
+            <p style="display: inline">* <?=$data["naam_klant"]?></p>
             <br>
             <br>
 
-            <label for="adress">Adres:</label>
-            <input style= "width: 220px"name='adress' type="text" placeholder="15e aanstaanlaan" value="<?=$adress?>">
-            <p style="display: inline">* <?=$data["adres"]?></p>
+            <label for="adress_costumer">Adres:</label>
+            <input style= "width: 220px"name='adress_costumer' type="text" placeholder="15e aanstaanlaan" value="<?=$adress?>">
+            <p style="display: inline">* <?=$data["adress"]?></p>
             <br>
             <br>
 
-            <label for="nummer">Telefoonnummer:</label>
-            <input name='nummer' type="text" placeholder="06123467890" value="<?=$number?>">
-            <p style="display: inline">* <?=$data["nummer"]?></p>
+            <label for="tel_nmbr">Telefoonnummer:</label>
+            <input name='tel_nmbr' type="text" placeholder="06123467890" value="<?=$number?>">
+            <p style="display: inline">* <?=$data["tel_nmbr"]?></p>
             <br>
             <br>
                 <p>* verplicht</p>

@@ -17,45 +17,78 @@ function trimdata($var){
 
 function ControleK(){
     if($_SERVER["REQUEST_METHOD"] == "POST"){
-        //naam controle
-        if(preg_match("/^([a-zA-Z' ]+)$/", $_POST["name"])){
-            $name= trimdata($_POST["name"]);
-            $data["name"]= $name;
-        }elseif(empty($_POST["name"])){
-            $error["naam"] = "Naam is leeg.";
-        }elseif(is_numeric($_POST["name"])){
-            $error["naam"] = "Er mogen geen cijfers.";
-        }else{
-            $error["naam"] = "Naam bevat ongeldige tekens.";
-        }
-
-        //Adres controle
-        if(preg_match("/^[a-zA-Z0-1000-,' ]*$/", $_POST["adress"]) && !empty($_POST["adress"])){
-            $adress= trimdata($_POST["adress"]);
-            $data["adress"]= $adress;
-        }elseif(empty($_POST["adress"])){
-            $error["adres"] = "Adres is leeg.";
-        }else{
-            $error["adres"] = "Adres bestaat niet.";
-        }
-
-    //telefoonnummer controle
-        if(is_numeric($_POST["nummer"]) && isset($_POST["nummer"]) && !empty($_POST["nummer"])){
-            $minDigits= 10; 
-            $maxDigits= 14; 
-            if(preg_match('/^[0-10]{'.$minDigits.','.$maxDigits.'}\z/', $_POST["nummer"])){
-                $number= trimdata($_POST["nummer"]);
-                $data["nummer"]= $number;
-            }
-        }elseif(empty($_POST["nummer"])){
-            $error["nummer"] = "Telefoonnummer is leeg.";
-        }else{
-            $error["nummer"] = "Telefoonnummer mag geen letters of tekens bevatten! ";
-        }
-        
         if(isset($_POST["register_costumer"])){
-            storeCostumer($data, $error);
-        }elseif(isset($_POST["update_costumer"])){
+            //naam controle
+            if(preg_match("/^([a-zA-Z' ]+)$/", $_POST["name_costumer"])){
+                $name_costumer= trimdata($_POST["name_costumer"]);
+                $data["name_costumer"]= $name_costumer;
+            }elseif(empty($_POST["name_costumer"])){
+                $error["naam_klant"] = "naam_klant is leeg.";
+            }elseif(is_numeric($_POST["name_costumer"])){
+                $error["naam_klant"] = "Er mogen geen cijfers.";
+            }else{
+                $error["naam_klant"] = "naam_klant bevat ongeldige tekens.";
+            }
+
+            //Adres controle
+            if(preg_match("/[A-Za-z0-9]+/", $_POST["adress_costumer"]) && !empty($_POST["adress_costumer"])){
+                $adress_costumer= trimdata($_POST["adress_costumer"]);
+                $data["adress_costumer"]= $adress_costumer;
+            }elseif(empty($_POST["adress_costumer"])){
+                $error["adress"] = "Adres is leeg.";
+            }else{
+                $error["adress"] = "Adres bestaat niet.";
+            }
+
+        //telefoonnummer controle
+            if(preg_match("/^[0-9]*$/", $_POST["tel_nmbr"])){
+                $number= trimdata($_POST["tel_nmbr"]);
+                $data["tel_nmbr"]= $number;
+            }elseif(empty($_POST["tel_nmbr"])){
+                $error["tel_nmbr"] = "Telefoontel_nmbr is leeg.";
+            }else{
+                $error["tel_nmbr"] = "Telefoontel_nmbr mag geen letters of tekens bevatten! ";
+            }
+                storeCostumer($data, $error);
+        }
+
+
+        if(isset($_POST["update_costumer"])){
+            //            
+            //naam controle
+            if(preg_match("/^([a-zA-Z' ]+)$/", $_POST["name_costumer"])){
+                $name_costumer= trimdata($_POST["name_costumer"]);
+                $data["name_costumer"]= $name_costumer;
+            }elseif(empty($_POST["name_costumer"])){
+                $error["naam_klant"] = "naam_klant is leeg.";
+            }elseif(is_numeric($_POST["name_costumer"])){
+                $error["naam_klant"] = "Er mogen geen cijfers.";
+            }else{
+                $error["naam_klant"] = "naam_klant bevat ongeldige tekens.";
+            }
+
+            //Adres controle
+            if(preg_match("/[A-Za-z0-9]+/", $_POST["adress_costumer"]) && !empty($_POST["adress_costumer"])){
+                $adress_costumer= trimdata($_POST["adress_costumer"]);
+                $data["adress_costumer"]= $adress_costumer;
+            }elseif(empty($_POST["adress_costumer"])){
+                $error["adress"] = "Adres is leeg.";
+            }else{
+                $error["adress"] = "Adres bestaat niet";
+            }
+
+        //telefoonnummer controle
+            if(preg_match("/^[0-9]*$/", $_POST["tel_nmbr"])){
+                $number= trimdata($_POST["tel_nmbr"]);
+                $data["tel_nmbr"]= $number;
+            }elseif(empty($_POST["tel_nmbr"])){
+                $error["tel_nmbr"] = "Telefoontel_nmbr is leeg.";
+            }else{
+                $error["tel_nmbr"] = "Telefoontel_nmbr mag geen letters of tekens bevatten! ";
+            }
+            $data["editID"]= $_POST["editID"];
+            
+            echo $data["name_costumer"], ", ", $data["adress_costumer"], ", ",  $data["tel_nmbr"], ", ",  $data["editID"], "<br>";
             EditCostumer($data, $error);
         }
     }
@@ -234,7 +267,7 @@ function storeCostumer($data, $error)
 function EditCostumer($data, $error)
 {
     //1. Update een bestaand persoon met de data uit het formulier en sla deze op in de database
-    updateCostumer($data);
+    UpdateCostumer($data);
    
     //2. Bouw een url en redirect hierheen
     render('empty/riders', $error);
@@ -242,9 +275,12 @@ function EditCostumer($data, $error)
 
 function RemoveCostumer(){
     $data = $_POST;
-
-    DeleteCostumer($data);
-    render('empty/riders');
+    if(isset($_POST["delete_costumer"])){
+        DeleteCostumer($data);
+        render('empty/riders');
+    }else{
+        render('empty/riders');
+    }    
 }
 
 /* ======== Paarden CRUD ========*/
@@ -266,9 +302,12 @@ function RemoveHorse()
 {
     $data = $_POST;
     //1. Delete een medewerker uit de database
-    DeleteHorse($data);
-    //2. Bouw een url en redirect hierheen
-    render('empty/overviewhorses');   
+    if(isset($_POST["delete_horse"])){
+        DeleteHorse($data);
+        render('empty/overviewhorses');   
+    }else{
+        render('empty/overviewhorses');   
+    }
 }
 
 /* ======== Reserveringen CRUD ========*/
@@ -283,16 +322,19 @@ function ChangeReservation($data, $error)
 {
     UpdateReservation($data);
 
-    render('empty/UD_reservation', $error);
+    render('empty/myreservations', $error);
 }
 
 function RemoveReservation()
 {
-    //1. Delete een medewerker uit de database
     $data= $_POST;
-    DeleteReservation($data);
-    //2. Bouw een url en redirect hierheen
-    render('empty/UD_reservation');   
+    if(isset($_POST["delete_reservation"])){
+        DeleteReservation($data);
+        render('empty/myreservations');   
+    }else{
+        render('empty/myreservations');    
+    }
+
 }
 
 /* ======== Manege url's ========*/
@@ -326,13 +368,9 @@ function overviewhorses()
     render('empty/overviewhorses');
 }
 
-function EditHorses()
+function create_horse()
 {
-    render('empty/UD_horses');
-}
-
-function Change(){
-    render('empty/UD_reservation');
+    render('empty/create_horse');
 }
 
 function DetailReservation($id)
@@ -345,11 +383,6 @@ function DetailReservation($id)
 function myreservations(){
     render('empty/myreservations');
 }
-
-function ud_costumers(){
-    render('empty/UD_costumers');
-}
-
 
 function getreservation($id){
     $info_reservation= getcostumer($id,$tablename= "Reserveringen");
@@ -378,4 +411,38 @@ function CalculatePrice($info_reservation){
     $price= $ans3 * $ans2;
     $info_reservation["prijs"]= $price;
     render('empty/buyreservation', $info_reservation);
+}
+
+function update_horse($id){
+    $info= getCostumer($id, $tablename= "Paarden");
+    render('empty/update_horse', $info);
+}
+
+function delete_horse($id){
+    $info= getCostumer($id, $tablename= "Paarden");
+    render('empty/delete_horse', $info);
+}
+
+function create_reservation(){
+    render('empty/create_reservation');
+}
+
+function update_reservation($id){
+    $info2= getCostumer($id, $tablename= "Reserveringen");
+    render('empty/update_reservation', $info2);
+}
+
+function update_costumer($id){
+    $info3= getCostumer($id, $tablename= "Ruiters");
+    render('empty/update_costumer', $info3);
+}
+
+function delete_costumer($id){
+    $info4= getCostumer($id, $tablename= "Ruiters");
+    render('empty/delete_costumer', $info4);
+}
+
+function delete_reservation($id){
+    $info5= getCostumer($id, $tablename= "Reserveringen");
+    render('empty/delete_reservation', $info5);
 }
